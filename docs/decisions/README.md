@@ -36,3 +36,4 @@ Whitepaper Appendix A lists 12 authorization scopes; `lib/aep/authz/scopes.ts`
 defines 14 (adding `provider.read` / `provider.write`). See ADR-0004 and
 ADR-0006 — the extra two are runtime scopes rather than protocol scopes, and the
 appendix should state that rather than omitting them silently.
+
