@@ -164,7 +164,7 @@ export default function ConnectedAppsPage() {
           <AlertDialogHeader>
             <AlertDialogTitle className="text-gray-900">Disconnect this app?</AlertDialogTitle>
             <AlertDialogDescription className="text-gray-500">
-              The app will lose access to your Helix account immediately. To reconnect later, you'll have to
+              The app will lose access to your Helix account immediately. To reconnect later, you&apos;ll have to
               approve it again from scratch.
             </AlertDialogDescription>
           </AlertDialogHeader>

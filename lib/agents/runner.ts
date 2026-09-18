@@ -238,8 +238,8 @@ export async function runOneCycle(params: {
               .replace(/\n?```\s*$/, "");
             try { return JSON.parse(stripped); } catch { return s; }
           };
-          let parsed = tryParse(finalMessage);
-          let result = validateOutput(tpl.outputSchema, parsed);
+          const parsed = tryParse(finalMessage);
+          const result = validateOutput(tpl.outputSchema, parsed);
           if (result.ok) {
             validatedOutput = result.value;
           } else {

@@ -13,9 +13,9 @@ vi.mock("@/lib/composio", () => ({
 import { composio } from "@/lib/composio";
 import { requireCanvaConnection } from "@/lib/agents/tools/canva/canva-connection";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const listMock = composio.connectedAccounts.list as unknown as ReturnType<typeof vi.fn>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const initiateMock = composio.connectedAccounts.initiate as unknown as ReturnType<typeof vi.fn>;
 
 describe("requireCanvaConnection", () => {

@@ -104,7 +104,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <CardTitle className="text-gray-900">Privacy & DSAR</CardTitle>
-              <CardDescription className="text-gray-500">Manage subjects and exercise GDPR rights — Read, Export, Erase — across your agents' data.</CardDescription>
+              <CardDescription className="text-gray-500">Manage subjects and exercise GDPR rights — Read, Export, Erase — across your agents&apos; data.</CardDescription>
             </div>
           </CardHeader>
         </Card>

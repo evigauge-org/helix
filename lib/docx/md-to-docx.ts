@@ -1,6 +1,6 @@
 // lib/docx/md-to-docx.ts
 import MarkdownIt from "markdown-it";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 // @ts-expect-error — markdown-it-task-lists ships no types
 import taskLists from "markdown-it-task-lists";
 import { Document } from "docx";

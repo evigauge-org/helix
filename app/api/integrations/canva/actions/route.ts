@@ -33,7 +33,7 @@ export async function GET() {
       limit: 50,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const toolList = Array.isArray(tools)
       ? tools.map((t: any) => ({
           name: t?.function?.name ?? t?.name ?? "unknown",

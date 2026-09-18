@@ -110,7 +110,7 @@ export function ArtifactsPanel() {
     })();
     return () => { cancelled = true; };
     // Re-fetch when message count changes too (new agent post may have added artifacts)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [isOpen, activeSessionId, messages.length]);
 
   const filtered = useMemo(() => {

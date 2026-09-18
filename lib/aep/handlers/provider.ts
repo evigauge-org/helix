@@ -6,9 +6,10 @@
 import { prisma } from "@/lib/prisma";
 import type { AepContext } from "../context";
 
-interface ProviderListParams {
-  // no params — always lists the calling user's providers
-}
+// No params — always lists the calling user's providers. Declared as an empty
+// object type rather than an empty interface, which would accept any non-nullish
+// value and so silently allow malformed input through.
+type ProviderListParams = Record<string, never>;
 
 interface ProviderListItem {
   id: string;

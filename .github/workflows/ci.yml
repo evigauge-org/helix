@@ -32,6 +32,10 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/helix_test
       BETTER_AUTH_SECRET: ci-only-secret-value-at-least-32-chars
       BETTER_AUTH_URL: http://localhost:3000
+      # Not a real key. lib/memory/embeddings.ts short-circuits when this is
+      # unset, which pre-empts the tests' own fetch mocks and fails their error
+      # -path assertions. The tests never make a network call.
+      OPENAI_API_KEY: sk-test-not-a-real-key
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import MarkdownIt from "markdown-it";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 // @ts-expect-error — no @types/markdown-it-task-lists published
 import mitt from "markdown-it-task-lists";
 import { renderTokens } from "@/lib/docx/tokens";

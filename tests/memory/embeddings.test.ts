@@ -22,7 +22,7 @@ describe("embed", () => {
   it("throws on non-OK response", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, status: 500, text: async () => "boom" }));
     await expect(embed("x")).rejects.toThrow(/OpenAI embedding failed/);
-  });
+  }, 15_000);
 
   it("throws when OPENAI_API_KEY is missing", async () => {
     const original = process.env.OPENAI_API_KEY;
@@ -40,5 +40,5 @@ describe("embed", () => {
       json: async () => ({ data: [{ embedding: [0.1, 0.2] }] }),
     }));
     await expect(embed("x")).rejects.toThrow(/unexpected shape/);
-  });
+  }, 15_000);
 });

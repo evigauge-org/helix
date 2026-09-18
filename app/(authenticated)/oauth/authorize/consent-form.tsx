@@ -137,7 +137,7 @@ export function ConsentForm({
 
       {(tos || policy) && (
         <p className="text-xs text-gray-500">
-          By approving, you agree to {clientName}'s{" "}
+          By approving, you agree to {clientName}&apos;s{" "}
           {tos && (
             <>
               <a href={tos} target="_blank" rel="noopener noreferrer" className="text-[#0085CF] hover:underline">

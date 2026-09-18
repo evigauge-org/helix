@@ -274,7 +274,7 @@ export default function PrivacyPage() {
             <DialogTitle className="text-gray-900">New Subject</DialogTitle>
             <DialogDescription className="text-gray-500">
               Create a Subject row to track GDPR rights for a natural person. Records (agents, runs,
-              artifacts, memory, messages) tagged with this subject's id become walkable via Read /
+              artifacts, memory, messages) tagged with this subject&apos;s id become walkable via Read /
               Export / Erase.
             </DialogDescription>
           </DialogHeader>
@@ -387,7 +387,7 @@ export default function PrivacyPage() {
                 <>
                   This will walk all records tagged with <code>{eraseSubject?.subject_id}</code> and apply
                   the chosen mode. Multi-subject Agents/Runs are stripped from list (preserves other
-                  subjects). Subject.legal_hold short-circuits to "retained."
+                  subjects). Subject.legal_hold short-circuits to &quot;retained.&quot;
                 </>
               )}
             </AlertDialogDescription>
@@ -424,7 +424,7 @@ export default function PrivacyPage() {
                 </label>
                 <p className="ml-6 mt-1 text-xs text-red-800/80">
                   Deletes single-subject runs/artifacts/memory/messages outright. Agents stay (their
-                  PII fields are redacted) — they may have other subjects' children.
+                  PII fields are redacted) — they may have other subjects&apos; children.
                 </p>
               </div>
               {eraseError && <p className="text-xs text-red-600">{eraseError}</p>}

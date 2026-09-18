@@ -172,9 +172,9 @@ export default function McpServersPage({
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">External MCP Servers</h1>
           <p className="mt-1 text-sm text-gray-500">
-            Attach external Model Context Protocol servers to expand this agent's tools. Tools from each server
+            Attach external Model Context Protocol servers to expand this agent&apos;s tools. Tools from each server
             appear under <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">mcp.&lt;server&gt;.&lt;tool&gt;</code>{" "}
-            in the agent's effective toolset.
+            in the agent&apos;s effective toolset.
           </p>
         </div>
         <Button
@@ -200,7 +200,7 @@ export default function McpServersPage({
           <div className="flex flex-col items-center gap-3 p-12 text-center">
             <Plug className="size-8 text-gray-300" />
             <p className="text-sm text-gray-500">
-              No external MCP servers attached. Add one to expand the agent's available tools.
+              No external MCP servers attached. Add one to expand the agent&apos;s available tools.
             </p>
           </div>
         ) : (
@@ -300,7 +300,7 @@ export default function McpServersPage({
                 autoFocus
               />
               <p className="text-xs text-gray-500">
-                Used as the namespace prefix for this server's tools. Letters, digits, dashes only.
+                Used as the namespace prefix for this server&apos;s tools. Letters, digits, dashes only.
               </p>
             </div>
             <div className="space-y-2">
@@ -355,7 +355,7 @@ export default function McpServersPage({
           <AlertDialogHeader>
             <AlertDialogTitle className="text-gray-900">Remove this MCP server?</AlertDialogTitle>
             <AlertDialogDescription className="text-gray-500">
-              The agent will no longer have access to this server's tools. You can re-add the server any time.
+              The agent will no longer have access to this server&apos;s tools. You can re-add the server any time.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="bg-gray-50 border-gray-200">
