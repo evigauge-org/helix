@@ -46,6 +46,12 @@ jobs:
       - run: npm ci
       - name: Generate Prisma client
         run: npx prisma generate
+      # next-env.d.ts is gitignored, so a clean checkout has none — and without
+      # it tsc never loads Next's global augmentations (RequestInit.next and
+      # friends), failing with TS2769 on perfectly valid code. `next typegen`
+      # produces them without paying for a full build.
+      - name: Generate Next.js route types
+        run: npx next typegen
       - name: Typecheck
         run: npm run typecheck
       - name: Lint
