@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/evigauge-org/helix/security/advisories/new
+    about: Report privately. Never open a public issue for a vulnerability.
+  - name: Questions and general discussion
+    url: https://github.com/evigauge-org/helix/discussions
+    about: Ask a question or discuss an idea before opening an issue.
+  - name: Commercial licensing and the Helix runtime
+    url: mailto:info@evigauge.com
+    about: Licensing enquiries, or questions about commercial use above the revenue threshold.

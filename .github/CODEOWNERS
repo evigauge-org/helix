@@ -1,0 +1,32 @@
+# Code owners.
+#
+# NOTE: evigauge-org is a personal account, not a GitHub Organization, so team
+# references (@evigauge-org/maintainers) are NOT valid here — GitHub silently
+# ignores them and assigns nobody. Individual accounts only.
+#
+# If this repository later moves to a real Organization, replace the individual
+# handles below with teams (maintainers / legal / protocol / security).
+
+# Default owner for everything.
+*                          @evigauge-org
+
+# Legal and governance documents.
+/LICENSE.md                @evigauge-org
+/CLA.md                    @evigauge-org
+/CODE_OF_CONDUCT.md        @evigauge-org
+/SECURITY.md               @evigauge-org
+
+# CI, CLA and certificate automation.
+/.github/                  @evigauge-org
+
+# The AEP wire protocol. External clients depend on these; changes need an ADR.
+/app/aep/                  @evigauge-org
+/lib/aep/                  @evigauge-org
+/docs/decisions/           @evigauge-org
+/docs/protocol/            @evigauge-org
+
+# Authentication, key custody and privacy.
+/lib/auth.ts               @evigauge-org
+/lib/crypto/               @evigauge-org
+/app/api/auth/             @evigauge-org
+/prisma/                   @evigauge-org

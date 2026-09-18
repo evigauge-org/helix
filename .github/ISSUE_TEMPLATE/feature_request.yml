@@ -1,0 +1,37 @@
+name: Feature request
+description: Propose a change to Helix
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before proposing something structural, read
+        [docs/decisions/](../../tree/main/docs/decisions) — several likely
+        questions are already settled there, with the rejected alternatives and
+        the reasoning written down.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the situation, not the solution you have in mind.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like Helix to do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What have you tried or considered instead?
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - label: This would change the AEP wire protocol (a new method, field or header)
+        - label: This would change something the client SDKs consume
+        - label: This would require a database migration
+        - label: This is a UI-only change

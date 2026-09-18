@@ -1,0 +1,66 @@
+name: Bug report
+description: Something in Helix does not behave as documented
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For anything security-related, **do not file an issue** — email
+        info@evigauge.com. See SECURITY.md.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options:
+        - "AEP runtime (/aep/v1)"
+        - "Agents — authoring, templates, specs"
+        - "Runs and run observability"
+        - "Artifacts — presentations, sheets, documents"
+        - "Memory"
+        - "Integrations and external MCP servers"
+        - "LLM providers (BYO-LLM)"
+        - "Auth, API keys, OAuth"
+        - "Privacy, GDPR, data governance"
+        - "Analytics"
+        - "Other / not sure"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "commit sha, or the release you are running"
+    validations:
+      required: true
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: How are you running it?
+      options: ["Local development", "Self-hosted deployment", "Other"]
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+      description: Include the full error and stack trace if there is one. Redact any keys.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The smallest sequence that reproduces it. This matters more than the description.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Browser, Node version, Postgres version, relevant configuration.

@@ -1,0 +1,1227 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                    String                      @id @default(cuid())
+  email                 String                      @unique
+  name                  String?
+  emailVerified         Boolean                     @default(false)
+  image                 String?
+  avatarUrl             String?
+  role                  String                      @default("viewer")
+  createdAt             DateTime                    @default(now())
+  updatedAt             DateTime                    @updatedAt
+  apiKeys               ApiKey[]
+  chatSessions          ChatSession[]
+  contentOutputs        ContentOutput[]
+  fileUploads           FileUpload[]
+  integrations          Integration[]
+  optimizationReports   OptimizationReport[]
+  presentations         Presentation[]
+  queryHistory          QueryHistory[]
+  feedback              UserFeedback[]
+  profile               UserProfile?
+  storeProjects         StoreProject[]
+  voiceSessions         VoiceSession[]
+  accounts              Account[]
+  sessions              Session[]
+  sessionEmbeddings     SessionEmbedding[]
+  memoryFacts           UserMemoryFact[]
+  researchEmbeddings    ResearchResponseEmbedding[]
+  agents                Agent[]
+  agentAuditTrails      AgentAuditTrail[]
+  aepSessions           AepSession[]
+  oauthClients          OAuthClient[]
+  oauthAccessTokens     OAuthAccessToken[]
+  oauthRefreshTokens    OAuthRefreshToken[]
+  oauthConsents         OAuthConsent[]
+  subjects              Subject[]
+  subjectErasureLogs    SubjectErasureLog[]
+  llmProviders          LlmProvider[]
+  agentKnowledgeSources AgentKnowledgeSource[]
+  reviews               AgentRunReview[]
+  dataGovInKey          UserDataGovInKey?
+
+  @@map("user")
+}
+
+model Session {
+  id                 String              @id @default(cuid())
+  userId             String
+  token              String              @unique
+  expiresAt          DateTime
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  ipAddress          String?
+  userAgent          String?
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  oauthAccessTokens  OAuthAccessToken[]
+  oauthRefreshTokens OAuthRefreshToken[]
+
+  @@index([userId])
+  @@index([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Integration {
+  id                   String    @id @default(cuid())
+  userId               String
+  platform             String
+  accessToken          String
+  refreshToken         String?
+  tokenExpiresAt       DateTime?
+  composioConnectionId String?
+  accountName          String?
+  accountEmail         String?
+  scopes               String[]  @default([])
+  isActive             Boolean   @default(true)
+  connectedAt          DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, platform])
+  @@index([userId])
+  @@index([platform])
+}
+
+// Owned by `@better-auth/api-key` plugin. Field names + table mapping match
+// the plugin's expected schema exactly — DO NOT rename without updating the
+// plugin's `schema` option to match. `referenceId` is the userId (because the
+// plugin is configured with references: "user"). `key` stores a hash; the raw
+// key value is shown to the user once at creation time and never persisted.
+model ApiKey {
+  id                  String    @id @default(cuid())
+  configId            String
+  name                String?
+  start               String?
+  prefix              String?
+  key                 String
+  referenceId         String
+  refillInterval      Int?
+  refillAmount        Int?
+  lastRefillAt        DateTime?
+  enabled             Boolean   @default(true)
+  rateLimitEnabled    Boolean   @default(true)
+  rateLimitTimeWindow Int?
+  rateLimitMax        Int?
+  requestCount        Int       @default(0)
+  remaining           Int?
+  lastRequest         DateTime?
+  expiresAt           DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  permissions         String?
+  metadata            String?
+  user                User      @relation(fields: [referenceId], references: [id], onDelete: Cascade)
+
+  @@index([configId])
+  @@index([referenceId])
+  @@index([key])
+  @@map("apikey")
+}
+
+// --- OAuth 2.1 (Plan 4) -----------------------------------------------------
+// Schema mirrors @better-auth/oauth-provider 1.6.9. The plugin reads/writes
+// these via the Prisma adapter; we add @@map for snake_case tables and back-
+// relations on User/Session for cascade-on-delete semantics.
+
+model OAuthClient {
+  id                      String    @id @default(cuid())
+  clientId                String    @unique
+  clientSecret            String?
+  name                    String?
+  uri                     String?
+  icon                    String?
+  contacts                String[]  @default([])
+  tos                     String?
+  policy                  String?
+  softwareId              String?
+  softwareVersion         String?
+  softwareStatement       String?
+  redirectUris            String[]
+  postLogoutRedirectUris  String[]  @default([])
+  tokenEndpointAuthMethod String?
+  grantTypes              String[]  @default([])
+  responseTypes           String[]  @default([])
+  scopes                  String[]  @default([])
+  type                    String?
+  public                  Boolean?
+  requirePKCE             Boolean?
+  skipConsent             Boolean?
+  enableEndSession        Boolean?
+  subjectType             String?
+  disabled                Boolean?  @default(false)
+  referenceId             String?
+  userId                  String?
+  metadata                Json?
+  createdAt               DateTime?
+  updatedAt               DateTime?
+
+  user          User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessTokens  OAuthAccessToken[]
+  refreshTokens OAuthRefreshToken[]
+  consents      OAuthConsent[]
+
+  @@index([userId])
+  @@map("oauth_client")
+}
+
+model OAuthRefreshToken {
+  id          String    @id @default(cuid())
+  token       String
+  clientId    String
+  sessionId   String?
+  userId      String
+  referenceId String?
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  revoked     DateTime?
+  authTime    DateTime?
+  scopes      String[]
+
+  client       OAuthClient        @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  session      Session?           @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessTokens OAuthAccessToken[]
+
+  @@index([clientId])
+  @@index([userId])
+  @@index([token])
+  @@map("oauth_refresh_token")
+}
+
+model OAuthAccessToken {
+  id          String   @id @default(cuid())
+  token       String   @unique
+  clientId    String
+  sessionId   String?
+  userId      String?
+  referenceId String?
+  refreshId   String?
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  scopes      String[]
+
+  client  OAuthClient        @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  session Session?           @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  user    User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh OAuthRefreshToken? @relation(fields: [refreshId], references: [id])
+
+  @@index([clientId])
+  @@index([userId])
+  @@map("oauth_access_token")
+}
+
+model OAuthConsent {
+  id          String   @id @default(cuid())
+  clientId    String
+  userId      String?
+  referenceId String?
+  scopes      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  client OAuthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  user   User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([userId])
+  @@map("oauth_consent")
+}
+
+model ChatSession {
+  id                    String                      @id @default(cuid())
+  userId                String
+  title                 String?
+  pinned                Boolean                     @default(false)
+  archived              Boolean                     @default(false)
+  source                String                      @default("text")
+  createdAt             DateTime                    @default(now())
+  updatedAt             DateTime                    @updatedAt
+  summary               String?                     @db.Text
+  summaryUpdatedAt      DateTime?
+  messageCountAtSummary Int                         @default(0)
+  messages              ChatMessage[]
+  user                  User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  queries               QueryHistory[]
+  embedding             SessionEmbedding?
+  researchEmbeddings    ResearchResponseEmbedding[]
+
+  @@index([userId])
+  @@index([updatedAt])
+  @@index([pinned])
+}
+
+model SessionEmbedding {
+  id        String                      @id @default(cuid())
+  sessionId String                      @unique
+  userId    String
+  summary   String                      @db.Text
+  embedding Unsupported("vector(1536)")
+  createdAt DateTime                    @default(now())
+  updatedAt DateTime                    @updatedAt
+  session   ChatSession                 @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user      User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model UserMemoryFact {
+  id         String   @id @default(cuid())
+  userId     String
+  fact       String   @db.Text
+  category   String
+  confidence Float    @default(0.7)
+  lastUsedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id                String                     @id @default(cuid())
+  chatSessionId     String
+  role              String
+  content           String
+  phase             String?
+  metadata          Json?
+  hasFiles          Boolean                    @default(false)
+  fileNames         String[]                   @default([])
+  feedbackRating    String?
+  createdAt         DateTime                   @default(now())
+  chatSession       ChatSession                @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  researchEmbedding ResearchResponseEmbedding?
+
+  @@index([chatSessionId])
+  @@index([createdAt])
+}
+
+model ResearchResponseEmbedding {
+  id            String                      @id @default(cuid())
+  messageId     String                      @unique
+  chatSessionId String
+  userId        String
+  summary       String                      @db.Text
+  embedding     Unsupported("vector(1536)")
+  createdAt     DateTime                    @default(now())
+  updatedAt     DateTime                    @updatedAt
+  message       ChatMessage                 @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  session       ChatSession                 @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([chatSessionId])
+  @@index([userId])
+}
+
+model QueryHistory {
+  id                  String               @id @default(cuid())
+  userId              String
+  chatSessionId       String?
+  query               String
+  tier                Int                  @default(1)
+  response            String?
+  tokensUsed          Int                  @default(0)
+  cost                Float                @default(0)
+  latencyMs           Int                  @default(0)
+  cached              Boolean              @default(false)
+  confidence          Float?
+  agentsUsed          String[]             @default([])
+  hasFiles            Boolean              @default(false)
+  resultMetadata      Json?
+  createdAt           DateTime             @default(now())
+  contentOutputs      ContentOutput[]
+  fileUploads         FileUpload[]
+  optimizationReports OptimizationReport[]
+  presentations       Presentation[]
+  chatSession         ChatSession?         @relation(fields: [chatSessionId], references: [id])
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedback            UserFeedback[]
+
+  @@index([userId])
+  @@index([chatSessionId])
+  @@index([createdAt])
+  @@index([tier])
+}
+
+model FileUpload {
+  id             String        @id @default(cuid())
+  userId         String
+  queryHistoryId String?
+  filename       String
+  mimeType       String
+  sizeBytes      Int
+  chunks         Int           @default(0)
+  storageKey     String?
+  status         String        @default("uploaded")
+  createdAt      DateTime      @default(now())
+  queryHistory   QueryHistory? @relation(fields: [queryHistoryId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([queryHistoryId])
+}
+
+model Presentation {
+  id             String        @id @default(cuid())
+  userId         String
+  queryHistoryId String?
+  platform       String        @default("canva")
+  title          String
+  slideCount     Int           @default(0)
+  designId       String?
+  designUrl      String?
+  pptxUrl        String?
+  slidesData     Json?
+  status         String        @default("draft")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  queryHistory   QueryHistory? @relation(fields: [queryHistoryId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
+model UserFeedback {
+  id             String        @id @default(cuid())
+  userId         String
+  queryHistoryId String?
+  messageId      String
+  rating         String
+  createdAt      DateTime      @default(now())
+  queryHistory   QueryHistory? @relation(fields: [queryHistoryId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([queryHistoryId])
+}
+
+model OptimizationReport {
+  id             String        @id @default(cuid())
+  userId         String
+  queryHistoryId String?
+  goal           String        @default("both")
+  costSavings    String?
+  revenueUpside  String?
+  aiImpact       String?
+  summary        String?
+  downloadUrl    String?
+  fullResult     Json?
+  createdAt      DateTime      @default(now())
+  queryHistory   QueryHistory? @relation(fields: [queryHistoryId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ContentOutput {
+  id             String        @id @default(cuid())
+  userId         String
+  queryHistoryId String?
+  contentType    String
+  content        String
+  charCount      Int           @default(0)
+  createdAt      DateTime      @default(now())
+  queryHistory   QueryHistory? @relation(fields: [queryHistoryId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([contentType])
+}
+
+model VoiceSession {
+  id             String    @id @default(cuid())
+  userId         String
+  sessionWsId    String    @unique
+  durationMs     Int       @default(0)
+  utteranceCount Int       @default(0)
+  language       String?
+  status         String    @default("active")
+  startedAt      DateTime  @default(now())
+  endedAt        DateTime?
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([sessionWsId])
+}
+
+model UserProfile {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  preferredLength       String   @default("detailed")
+  preferredVocabulary   String   @default("technical")
+  tone                  String   @default("casual")
+  primaryLanguage       String   @default("en")
+  codeSwitches          Boolean  @default(false)
+  usesVoice             Boolean  @default(false)
+  totalVoiceMinutes     Float    @default(0)
+  followUpRate          Float    @default(0)
+  satisfactionScore     Float    @default(0)
+  totalQueries          Int      @default(0)
+  preferredReportFormat String   @default("pdf")
+  domains               Json?
+  activeHours           Json?
+  recurringPatterns     Json?
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ── Store Builder ──
+model StoreProject {
+  id                 String   @id @default(cuid())
+  userId             String
+  status             String   @default("wizard")
+  brief              Json?
+  currentStage       Int      @default(0)
+  shopifyStoreUrl    String?
+  shopifyAccessToken String?
+  inngestRunId       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stages StoreStage[]
+
+  @@index([userId])
+  @@map("store_project")
+}
+
+model StoreStage {
+  id           String    @id @default(cuid())
+  projectId    String
+  stage        Int
+  name         String
+  status       String    @default("pending")
+  input        Json?
+  output       Json?
+  userFeedback String?
+  error        String?
+  startedAt    DateTime?
+  completedAt  DateTime?
+
+  project  StoreProject        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sections StoreStageSection[]
+
+  @@index([projectId])
+  @@map("store_stage")
+}
+
+model SystemConstitution {
+  id        Int      @id @default(1)
+  text      String   @db.Text
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+}
+
+enum AepLifecycleState {
+  active
+  sleeping
+  complete
+  cancelled
+  error
+  archived
+}
+
+enum AepRunState {
+  running
+  sleeping
+  complete
+  cancelled
+  error
+}
+
+enum AepPromptPolicy {
+  auto
+  approval_required
+  locked
+}
+
+model Agent {
+  id                        String            @id @default(cuid())
+  userId                    String
+  name                      String
+  goal                      String            @db.Text
+  systemPromptExtra         String?           @db.Text
+  toolSlugs                 String[]
+  runnerModel               String            @default("anthropic/claude-haiku-4.5")
+  maxStepsPerCycle          Int               @default(50)
+  maxCycleDurationSecs      Int               @default(1800)
+  maxTokensPerCycle         Int               @default(500000)
+  maxLifetimeDays           Int               @default(30)
+  maxTotalTokens            Int               @default(5000000)
+  maxTicks                  Int               @default(500)
+  maxCodeExecutionsLifetime Int               @default(200)
+  maxTokensCostPerRunUsd    Float             @default(75.0) // hard cap; runner aborts if exceeded
+  createdBy                 String
+  createdInChatId           String?
+  parentAgentId             String?
+  rootAgentId               String
+  constitutionVersion       Int
+  // --- AEP protocol fields (additive; coexist with legacy columns) ---
+  aepId                     String?           @unique
+  constitutionImmutable     String?           @db.Text
+  constitutionMutable       String?           @db.Text
+  constitutionPolicy        AepPromptPolicy   @default(auto)
+  toolset                   String[]          @default([]) // namespaced form: "helix.web_search"
+  subjectIds                String[]          @default([])
+  lifecycleState            AepLifecycleState @default(active)
+  aepMetadata               Json?
+  // --- BYO LLM (Plan 7) ---
+  runnerProviderId          String?
+  runnerProvider            LlmProvider?      @relation("AgentLlmProvider", fields: [runnerProviderId], references: [id], onDelete: Restrict)
+  // ceilings + budgets stored as JSON, mirroring AEP shape
+  ceilingsJson              Json?
+  budgetsJson               Json?
+  selfModLocked             Boolean           @default(false)
+  replicationLocked         Boolean           @default(false)
+  deletedAt                 DateTime?
+  createdAt                 DateTime          @default(now())
+  updatedAt                 DateTime          @updatedAt
+
+  user                    User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent                  Agent?                   @relation("AgentChildren", fields: [parentAgentId], references: [id], onDelete: Cascade)
+  children                Agent[]                  @relation("AgentChildren")
+  runs                    AgentRun[]
+  versions                AgentVersion[]
+  modifications           AgentModification[]
+  skills                  AgentSkill[]
+  hardCeiling             AgentHardCeiling?
+  sentMessages            AgentMessage[]           @relation("SentMessages")
+  receivedMessages        AgentMessage[]           @relation("ReceivedMessages")
+  dashboard               AgentDashboard?
+  aepPromptHistory        AepPromptHistoryEntry[]
+  aepPendingPromptChanges AepPendingPromptChange[]
+  externalMcpServers      AgentExternalMcpServer[]
+  knowledgeSources        AgentKnowledgeSource[]
+  // --- Financial agents (template + self-improvement) ---
+  templateSlug            String?
+  templateVersion         Int?
+  template                AgentTemplate?           @relation("AgentFromTemplate", fields: [templateSlug], references: [slug])
+  systemPromptDraft       String?                  @db.Text
+  systemPromptSnapshot    Json?
+  reviews                 AgentRunReview[]
+
+  @@index([userId])
+  @@index([parentAgentId])
+  @@index([rootAgentId])
+  @@index([runnerProviderId])
+  @@index([templateSlug])
+}
+
+// External MCP server attachments per agent (Plan 5 / Phase 6 — Path B).
+// At run time, the runner connects to enabled servers, lists their tools, and
+// merges them into the agent's effective tool list under the namespace
+// `mcp.<server_slug>.<tool_name>`. authJson is plaintext for v1 (same risk
+// posture as oauth_access_token; hardening pass queued).
+model AgentExternalMcpServer {
+  id              String    @id @default(cuid())
+  agentId         String
+  name            String
+  url             String
+  transport       String    @default("streamable_http")
+  authJson        Json?
+  enabled         Boolean   @default(true)
+  lastConnectedAt DateTime?
+  lastError       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, name])
+  @@index([agentId])
+  @@map("agent_external_mcp_server")
+}
+
+model AgentHardCeiling {
+  id                       String   @id @default(cuid())
+  agentId                  String   @unique
+  maxStepsPerCycleCeiling  Int
+  maxCycleDurationCeiling  Int
+  maxTokensPerCycleCeiling Int
+  maxLifetimeDaysCeiling   Int
+  maxTotalTokensCeiling    Int
+  maxTicksCeiling          Int
+  createdAt                DateTime @default(now())
+  agent                    Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+model AgentRun {
+  id                   String      @id @default(cuid())
+  agentId              String
+  userId               String
+  status               String
+  tickCount            Int         @default(0)
+  totalSteps           Int         @default(0)
+  totalTokens          Int         @default(0)
+  nextWakeAt           DateTime?
+  currentTickStartedAt DateTime?
+  startedAt            DateTime    @default(now())
+  completedAt          DateTime?
+  finalMessage         String?     @db.Text
+  aepId                String?     @unique
+  aepState             AepRunState @default(running)
+  cycleCount           Int         @default(0)
+  subjectIds           String[]    @default([])
+  aepMetadata          Json?
+  aepResult            Json?
+
+  // --- Financial agents (run hierarchy + reproducibility) ---
+  parentRunId          String?
+  systemPromptUsed     String?  @db.Text
+  memorySnapshotJson   Json?
+  knowledgeSourceIds   String[] @default([])
+  modifyPromptProposed String?  @db.Text
+
+  agent     Agent           @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  parent    AgentRun?       @relation("RunHierarchy", fields: [parentRunId], references: [id])
+  children  AgentRun[]      @relation("RunHierarchy")
+  steps     AgentStep[]
+  artifacts AgentArtifact[]
+  aepEvents AepEvent[]
+  review    AgentRunReview?
+
+  @@index([agentId])
+  @@index([userId, status])
+  @@index([parentRunId])
+}
+
+model AgentStep {
+  id         String   @id @default(cuid())
+  runId      String
+  tickNumber Int
+  stepNumber Int
+  kind       String
+  toolSlug   String?
+  payload    Json
+  tokensIn   Int?
+  tokensOut  Int?
+  durationMs Int?
+  createdAt  DateTime @default(now())
+  run        AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, tickNumber, stepNumber])
+  @@index([runId, createdAt])
+}
+
+model AgentArtifact {
+  id          String   @id @default(cuid())
+  runId       String
+  name        String
+  mimeType    String
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+  run         AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  aepId       String?  @unique
+  sizeBytes   Int      @default(0)
+  sha256      String?
+  subjectId   String?
+  aepMetadata Json?
+  bytes       Bytes? // nullable; text artifacts keep using `content`
+
+  @@index([runId])
+}
+
+model AgentSkill {
+  id          String    @id @default(cuid())
+  agentId     String
+  name        String
+  description String
+  body        String    @db.Text
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  agent       Agent     @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, name])
+  @@index([agentId])
+}
+
+model AgentModification {
+  id         String   @id @default(cuid())
+  agentId    String
+  tickNumber Int
+  tool       String
+  before     Json
+  after      Json
+  createdAt  DateTime @default(now())
+  agent      Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, createdAt])
+}
+
+model AgentVersion {
+  id        String   @id @default(cuid())
+  agentId   String
+  snapshot  Json
+  createdAt DateTime @default(now())
+  agent     Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, createdAt])
+}
+
+model AgentMessage {
+  id          String    @id @default(cuid())
+  fromAgentId String
+  toAgentId   String
+  body        String    @db.Text
+  readAt      DateTime?
+  createdAt   DateTime  @default(now())
+  fromAgent   Agent     @relation("SentMessages", fields: [fromAgentId], references: [id], onDelete: Cascade)
+  toAgent     Agent     @relation("ReceivedMessages", fields: [toAgentId], references: [id], onDelete: Cascade)
+  aepId       String?   @unique
+  treeRootId  String? // always the root agent's aepId
+  deliveredAt DateTime?
+  aepBody     Json? // AEP-format body; legacy `body` text stays
+  subjectId   String? // Plan 6 — GDPR subject tag for messages
+
+  @@index([toAgentId, readAt])
+  @@index([fromAgentId, createdAt])
+  @@index([subjectId])
+}
+
+model AgentAuditTrail {
+  id                 String   @id @default(cuid())
+  userId             String
+  action             String
+  rootAgentIdDeleted String
+  descendantCount    Int
+  metadata           Json?
+  createdAt          DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model AgentDashboard {
+  id        String   @id @default(cuid())
+  agentId   String   @unique
+  title     String
+  bodyHtml  String   @db.Text
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  agent     Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+model StoreStageSection {
+  id                String     @id @default(cuid())
+  stageId           String
+  stage             StoreStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  sectionId         String
+  versions          Json
+  activeVersionId   String
+  approvedVersionId String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@unique([stageId, sectionId])
+  @@index([stageId])
+}
+
+model AepSession {
+  id                     String   @id @default(cuid())
+  aepId                  String   @unique // "ses_..."
+  userId                 String
+  protocolVersion        String // "aep-2026-04-24"
+  negotiatedCapabilities Json // {auth.oauth2: false, messaging.peer: true, ...}
+  clientName             String
+  clientVersion          String
+  createdAt              DateTime @default(now())
+  lastSeenAt             DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model AepEvent {
+  id          String   @id @default(cuid())
+  aepId       String   @unique // "evt_..."
+  runId       String // FK to AgentRun.id
+  type        String // "run.started" | "cycle.started" | ... (see events.schema.json)
+  emittedAt   DateTime @default(now())
+  sequenceNum Int // monotonically increasing PER RUN
+  payload     Json
+
+  run AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, sequenceNum])
+  @@index([runId, emittedAt])
+}
+
+model AepPromptHistoryEntry {
+  id           String   @id @default(cuid())
+  aepId        String   @unique // "phe_..."
+  agentId      String // FK to Agent.id
+  diff         String   @db.Text // unified diff
+  reason       String   @db.Text
+  approvedBy   String? // userId when applied via approval flow
+  appliedAt    DateTime @default(now())
+  // while pending approval
+  pendingAepId String?  @unique // "pch_..." when queued, nulled when applied/rejected
+  status       String   @default("applied") // "applied" | "queued" | "rejected"
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, appliedAt])
+}
+
+model AepMemoryRecord {
+  id               String    @id @default(cuid())
+  aepId            String    @unique // "mem_..."
+  treeRootId       String // root Agent.aepId
+  namespace        String // e.g. "recruitment.firm_directory"
+  key              String
+  value            Json
+  embedding        Float[]   @default([])
+  createdByAgentId String // Agent.aepId
+  createdAt        DateTime  @default(now())
+  subjectId        String?
+  ttlSeconds       Int?
+  expiresAt        DateTime?
+
+  @@unique([treeRootId, namespace, key])
+  @@index([treeRootId, namespace, createdAt])
+  @@index([subjectId])
+}
+
+model AepPendingPromptChange {
+  id              String    @id @default(cuid())
+  aepId           String    @unique // "pch_..."
+  agentId         String
+  proposedDiff    String    @db.Text
+  proposedContent String    @db.Text // resolved full text after applying the diff
+  mode            String // "replace" | "diff"
+  reason          String    @db.Text
+  createdAt       DateTime  @default(now())
+  resolvedAt      DateTime?
+  resolution      String? // "approved" | "rejected"
+  resolvedBy      String?
+  comment         String?   @db.Text
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, createdAt])
+  @@index([agentId, resolvedAt])
+}
+
+// --- GDPR / Compliance (Plan 6 / Phase 7) -----------------------------------
+// `subject_id` (e.g. "sub_…") is tagged on records that may contain PII for a
+// natural person. The Subject row itself stores any per-subject metadata and
+// the legal-hold flag. SubjectErasureLog records every erase call for audit.
+//
+// Records that carry subject_ids:
+//   Agent.subjectIds (multi)        — strip-from-list when one of many
+//   AgentRun.subjectIds (multi)     — strip-from-list when one of many
+//   AgentArtifact.subjectId (single) — delete or redact
+//   AepMemoryRecord.subjectId (single, indexed) — delete or redact
+//   AgentMessage.subjectId (single, added in this plan) — delete or redact
+
+model Subject {
+  id        String   @id @default(cuid())
+  aepId     String   @unique // "sub_…"
+  userId    String
+  metadata  Json?
+  legalHold Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  erasureLogs SubjectErasureLog[]
+
+  @@index([userId])
+  @@map("subject")
+}
+
+model SubjectErasureLog {
+  id           String   @id @default(cuid())
+  // subjectAepId is kept as a string (not FK) so the audit row survives
+  // even if the Subject row is later deleted by cascade.
+  subjectAepId String
+  subjectRowId String?
+  userId       String
+  mode         String // "hard_delete" | "redact"
+  manifest     Json
+  performedAt  DateTime @default(now())
+
+  subject Subject? @relation(fields: [subjectRowId], references: [id], onDelete: SetNull)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([subjectAepId, performedAt])
+  @@index([userId, performedAt])
+  @@map("subject_erasure_log")
+}
+
+enum LlmProviderKind {
+  openai_compat
+  anthropic
+  gemini
+}
+
+model LlmProvider {
+  id             String          @id @default(cuid())
+  userId         String
+  name           String
+  kind           LlmProviderKind
+  baseUrl        String?
+  apiKeyCipher   String          @db.Text
+  apiKeyIv       String
+  apiKeyAuthTag  String
+  apiKeyHint     String
+  defaultModel   String?
+  lastTestedAt   DateTime?
+  lastTestStatus String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agents Agent[] @relation("AgentLlmProvider")
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model AgentKnowledgeSource {
+  id             String   @id @default(cuid())
+  agentId        String?
+  draftToken     String?
+  userId         String
+  filename       String
+  mimeType       String
+  sizeBytes      Int
+  lane           String // 'pageindex' | 'pgvector'
+  pageindexDocId String?
+  pageCount      Int?
+  chunkCount     Int      @default(0)
+  status         String // 'uploading' | 'processing' | 'ready' | 'failed'
+  errorMessage   String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  agent  Agent?                @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  user   User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chunks AgentKnowledgeChunk[]
+
+  @@index([agentId])
+  @@index([userId, draftToken])
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+model AgentKnowledgeChunk {
+  id         String                      @id @default(cuid())
+  sourceId   String
+  agentId    String?
+  chunkIndex Int
+  content    String                      @db.Text
+  tokenCount Int
+  embedding  Unsupported("vector(1536)")
+  createdAt  DateTime                    @default(now())
+
+  source AgentKnowledgeSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId, chunkIndex])
+  @@index([agentId])
+}
+
+// ── Financial Agent Templates (v1) ──────────────────────────────────────────
+
+model AgentTemplate {
+  id                        String   @id @default(cuid())
+  slug                      String   @unique
+  name                      String
+  category                  String
+  goal                      String   @db.Text
+  description               String   @db.Text
+  iconName                  String?
+  defaultToolSlugs          String[]
+  defaultSkillIds           String[] @default([])
+  systemPromptBase          String   @db.Text
+  outputSchemaJson          Json
+  docPolicy                 String
+  docChecklistJson          Json
+  reviewerRoleHint          String?
+  selfImprovementPolicyJson Json
+  version                   Int      @default(1)
+  enabled                   Boolean  @default(true)
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  agents Agent[] @relation("AgentFromTemplate")
+
+  @@index([category, enabled])
+}
+
+model AgentRunReview {
+  id              String  @id @default(cuid())
+  runId           String  @unique
+  agentId         String
+  templateSlug    String?
+  templateVersion Int?
+
+  status        String
+  outputJson    Json
+  outputSummary String? @db.Text
+  citationsJson Json?
+  outputDigest  String
+
+  approverId   String?
+  decisionAt   DateTime?
+  decisionNote String?   @db.Text
+
+  blockedToolCallsJson Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  run      AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  agent    Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  approver User?    @relation(fields: [approverId], references: [id])
+
+  @@index([status, createdAt])
+  @@index([agentId, createdAt])
+  @@index([templateSlug, status])
+}
+
+model AgentRunAuditLog {
+  id              String  @id @default(cuid())
+  runId           String
+  agentId         String
+  userId          String
+  templateSlug    String?
+  templateVersion Int?
+
+  startedAt    DateTime
+  finishedAt   DateTime?
+  status       String
+  reviewStatus String?
+  approverId   String?
+  decisionAt   DateTime?
+
+  toolCallCount      Int      @default(0)
+  knowledgeSourceIds String[] @default([])
+  outputDigest       String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, startedAt])
+  @@index([templateSlug, startedAt])
+  @@index([agentId, startedAt])
+  @@index([reviewStatus, decisionAt])
+}
+
+model AuditMemoryEvent {
+  id          String   @id @default(cuid())
+  runId       String
+  agentId     String
+  userId      String
+  op          String
+  scope       String
+  key         String
+  valueDigest String?
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  @@index([agentId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ScrapedDataCache {
+  id        String   @id @default(cuid())
+  source    String
+  key       String
+  payload   Json
+  etag      String?
+  fetchedAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@unique([source, key])
+  @@index([expiresAt])
+}
+
+model PrecedentTransactionCache {
+  id                String    @id @default(cuid())
+  acquirerName      String
+  targetName        String
+  announceDate      DateTime
+  closeDate         DateTime?
+  enterpriseValue   Decimal?
+  evRevenueMultiple Decimal?
+  evEbitdaMultiple  Decimal?
+  premiumPct        Decimal?
+  structure         String?
+  sectors           String[]
+  sourceUrls        String[]
+  fetchedAt         DateTime  @default(now())
+
+  @@index([announceDate])
+}
+
+model UserDataGovInKey {
+  id         String    @id @default(cuid())
+  userId     String    @unique
+  iv         String
+  authTag    String
+  ciphertext String
+  keyMask    String
+  status     String    @default("active")
+  createdAt  DateTime  @default(now())
+  rotatedAt  DateTime?
+  lastUsedAt DateTime?
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InsuranceFactsheetCache {
+  id           String   @id @default(cuid())
+  insurerSlug  String
+  monthLabel   String
+  monthYyyymm  String
+  pdfBytes     Bytes
+  pdfUrl       String
+  sizeKb       Int
+  pageCount    Int?
+  source       String
+  fetchedAt    DateTime @default(now())
+
+  @@unique([insurerSlug, monthYyyymm])
+  @@index([fetchedAt])
+}

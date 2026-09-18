@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aep.dev/schemas/rpc.schema.json",
+  "title": "AEP RPC Methods",
+  "$defs": {
+    "InitializeParams": {
+      "type": "object",
+      "required": ["client_info", "requested_versions", "requested_capabilities"],
+      "properties": {
+        "client_info": {
+          "type": "object",
+          "required": ["name", "version"],
+          "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+        },
+        "requested_versions": { "type": "array", "items": { "type": "string" } },
+        "requested_capabilities": {
+          "type": "object",
+          "additionalProperties": { "type": "boolean" }
+        }
+      }
+    },
+    "InitializeResult": {
+      "type": "object",
+      "required": ["server_info", "protocol_version", "capabilities", "session_id"],
+      "properties": {
+        "server_info": {
+          "type": "object",
+          "required": ["name", "version"],
+          "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+        },
+        "protocol_version": { "type": "string" },
+        "capabilities": { "type": "object", "additionalProperties": { "type": "boolean" } },
+        "session_id": { "type": "string" }
+      }
+    },
+    "AgentCreateParams": {
+      "type": "object",
+      "required": ["name", "constitution", "toolset", "ceilings", "budgets"],
+      "properties": {
+        "name": { "type": "string" },
+        "constitution": { "$ref": "resources.schema.json#/$defs/Constitution" },
+        "toolset": { "type": "array", "items": { "type": "string" } },
+        "external_mcp_servers": { "type": "array", "items": { "$ref": "resources.schema.json#/$defs/ExternalMcpServer" } },
+        "ceilings": { "$ref": "resources.schema.json#/$defs/Ceilings" },
+        "budgets": { "$ref": "resources.schema.json#/$defs/Budgets" },
+        "subject_ids": { "type": "array", "items": { "type": "string" } },
+        "metadata": { "type": "object" },
+        "runner": { "$ref": "resources.schema.json#/$defs/AgentRunnerConfig" }
+      }
+    },
+    "AgentGetParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "include": { "type": "array", "items": { "type": "string", "enum": ["prompt_history"] } },
+        "prompt_history_cursor": { "type": "string" }
+      }
+    },
+    "AgentListParams": {
+      "type": "object",
+      "properties": {
+        "root_agent_id": { "type": "string" },
+        "parent_agent_id": { "type": "string" },
+        "lifecycle_state": { "$ref": "enums.schema.json#/$defs/LifecycleState" },
+        "subject_id": { "type": "string" },
+        "cursor": { "type": "string" },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 200 }
+      }
+    },
+    "AgentUpdateParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "name": { "type": "string" },
+        "metadata": { "type": "object" },
+        "ceilings": { "$ref": "resources.schema.json#/$defs/Ceilings" },
+        "budgets": { "$ref": "resources.schema.json#/$defs/Budgets" },
+        "constitution": { "$ref": "resources.schema.json#/$defs/Constitution" },
+        "runner": { "anyOf": [{ "$ref": "resources.schema.json#/$defs/AgentRunnerConfig" }, { "type": "null" }] }
+      }
+    },
+    "AgentApprovePromptChangeParams": {
+      "type": "object",
+      "required": ["agent_id", "pending_change_id", "approve"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "pending_change_id": { "type": "string" },
+        "approve": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "AgentCancelParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" }
+      }
+    },
+    "AgentArchiveParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" }
+      }
+    },
+    "RunCreateParams": {
+      "type": "object",
+      "required": ["agent_id", "goal"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "goal": { "type": "string" },
+        "inputs": { "type": "object" },
+        "subject_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "RunGetParams": {
+      "type": "object",
+      "required": ["run_id"],
+      "properties": {
+        "run_id": { "type": "string" }
+      }
+    },
+    "RunListParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "cursor": { "type": "string" },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 200 }
+      }
+    },
+    "RunCancelParams": {
+      "type": "object",
+      "required": ["run_id"],
+      "properties": {
+        "run_id": { "type": "string" }
+      }
+    },
+    "RunContinueParams": {
+      "type": "object",
+      "required": ["run_id"],
+      "properties": {
+        "run_id": { "type": "string" }
+      }
+    },
+    "ArtifactGetParams": {
+      "type": "object",
+      "required": ["artifact_id"],
+      "properties": {
+        "artifact_id": { "type": "string" }
+      }
+    },
+    "ArtifactDeleteParams": {
+      "type": "object",
+      "required": ["artifact_id"],
+      "properties": {
+        "artifact_id": { "type": "string" }
+      }
+    },
+    "MemoryWriteParams": {
+      "type": "object",
+      "required": ["tree_root_id", "namespace", "key", "value"],
+      "properties": {
+        "tree_root_id": { "type": "string" },
+        "namespace": { "type": "string" },
+        "key": { "type": "string" },
+        "value": {},
+        "subject_id": { "type": "string" },
+        "ttl_seconds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "MemoryReadParams": {
+      "type": "object",
+      "required": ["tree_root_id", "namespace"],
+      "properties": {
+        "tree_root_id": { "type": "string" },
+        "namespace": { "type": "string" },
+        "key": { "type": "string" },
+        "limit": { "type": "integer" },
+        "cursor": { "type": "string" }
+      }
+    },
+    "MemorySearchParams": {
+      "type": "object",
+      "required": ["tree_root_id", "namespace", "query"],
+      "properties": {
+        "tree_root_id": { "type": "string" },
+        "namespace": { "type": "string" },
+        "query": { "type": "string" },
+        "k": { "type": "integer", "minimum": 1, "maximum": 50 }
+      }
+    },
+    "MemoryDeleteParams": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tree_root_id": { "type": "string" },
+        "namespace": { "type": "string" },
+        "subject_id": { "type": "string" }
+      }
+    },
+    "MessageSendParams": {
+      "type": "object",
+      "required": ["to_agent_id", "body"],
+      "properties": {
+        "to_agent_id": { "type": "string" },
+        "body": {},
+        "tree_root_id": {
+          "type": "string",
+          "description": "Optional. Server infers this from the sender agent's context when omitted. Included here for clients that need to pin the tree explicitly."
+        }
+      }
+    },
+    "MessageInboxParams": {
+      "type": "object",
+      "required": ["agent_id"],
+      "properties": {
+        "agent_id": { "type": "string" }
+      }
+    },
+    "MessageListParams": {
+      "type": "object",
+      "properties": {
+        "agent_id": { "type": "string" },
+        "tree_root_id": { "type": "string" },
+        "cursor": { "type": "string" },
+        "limit": { "type": "integer" }
+      }
+    },
+    "SubjectParams": {
+      "type": "object",
+      "required": ["subject_id"],
+      "properties": {
+        "subject_id": { "type": "string" }
+      }
+    },
+    "SubjectExportParams": { "$ref": "#/$defs/SubjectParams" },
+    "SubjectReadParams": { "$ref": "#/$defs/SubjectParams" },
+    "SubjectEraseParams": {
+      "type": "object",
+      "required": ["subject_id", "mode"],
+      "properties": {
+        "subject_id": { "type": "string" },
+        "mode": { "$ref": "enums.schema.json#/$defs/EraseMode" }
+      }
+    },
+    "ArtifactListParams": {
+      "type": "object",
+      "properties": {
+        "run_id": { "type": "string" },
+        "agent_id": { "type": "string" },
+        "subject_id": { "type": "string" },
+        "cursor": { "type": "string" },
+        "limit": { "type": "integer" }
+      }
+    },
+    "IdParam": {
+      "type": "object",
+      "required": ["id"],
+      "properties": { "id": { "type": "string" } }
+    },
+    "ProviderListParams": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "ProviderListResult": {
+      "type": "object",
+      "required": ["providers"],
+      "properties": {
+        "providers": {
+          "type": "array",
+          "items": { "$ref": "resources.schema.json#/$defs/LlmProviderView" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aep.dev/schemas/aep-2026-04-24.schema.json",
+  "title": "AEP 2026-04-24 Bundle",
+  "description": "Top-level aggregate for codegen. Imports all sub-schemas.",
+  "type": "object",
+  "properties": {
+    "protocol_version": { "const": "aep-2026-04-24" },
+    "enums": { "$ref": "enums.schema.json" },
+    "resources": { "$ref": "resources.schema.json" },
+    "events": { "$ref": "events.schema.json" },
+    "rpc": { "$ref": "rpc.schema.json" }
+  }
+}

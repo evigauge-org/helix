@@ -1,0 +1,31 @@
+// lib/aep/rpc/capability-gates.ts
+export const methodCapabilityMap: Record<string, string | undefined> = {
+  // core methods — no capability required
+  "initialize": undefined,
+  "agent.create": undefined,
+  "agent.get": undefined,
+  "agent.list": undefined,
+  "agent.update": undefined,
+  "agent.cancel": undefined,
+  "agent.archive": undefined,
+  "run.create": undefined,
+  "run.get": undefined,
+  "run.list": undefined,
+  "run.cancel": undefined,
+  "run.continue": undefined,
+  "artifact.get": undefined,
+  "artifact.list": undefined,
+  "artifact.delete": undefined,
+  // gated methods
+  "agent.approve_prompt_change": "self.modify_prompt",
+  "memory.write": "self.learning_memory",
+  "memory.read": "self.learning_memory",
+  "memory.search": "self.learning_memory",
+  "memory.delete": "self.learning_memory",
+  "message.send": "messaging.peer",
+  "message.inbox": "messaging.peer",
+  "message.list": "messaging.peer",
+  "subject.export": "compliance.gdpr",
+  "subject.read": "compliance.gdpr",
+  "subject.erase": "compliance.gdpr",
+};

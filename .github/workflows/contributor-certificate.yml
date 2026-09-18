@@ -1,0 +1,105 @@
+name: Contributor Certificate
+
+on:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  certificate:
+    name: Issue Certificate of Contribution
+    # Only for merged PRs, and never for our own bots.
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.type != 'Bot' &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Confirm the contributor accepted the CLA
+        id: cla
+        env:
+          GH_TOKEN: ${{ secrets.CLA_SIGNATURES_TOKEN }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          # No signature store token configured -> do not issue a certificate.
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLA_SIGNATURES_TOKEN not set; skipping certificate."
+            exit 0
+          fi
+          if gh api repos/evigauge-org/cla-signatures/contents/signatures/helix.json \
+               --jq '.content' 2>/dev/null | base64 -d \
+               | grep -Fq "\"$AUTHOR\""; then
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::No CLA signature on record for $AUTHOR; skipping certificate."
+          fi
+
+      - name: Install renderer
+        if: steps.cla.outputs.signed == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq librsvg2-bin
+
+      - name: Render certificate
+        if: steps.cla.outputs.signed == 'true'
+        env:
+          NAME: ${{ github.event.pull_request.user.name || github.event.pull_request.user.login }}
+          HANDLE: ${{ github.event.pull_request.user.login }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          mkdir -p out
+          python3 .github/scripts/make_certificate.py \
+            --name "$NAME" \
+            --handle "$HANDLE" \
+            --repo "$REPO" \
+            --pr "$PR" \
+            --title "$TITLE" \
+            --date "$(date -u '+%-d %B %Y')" \
+            > "out/certificate-pr-${PR}.svg"
+          rsvg-convert -f pdf -o "out/certificate-pr-${PR}.pdf" "out/certificate-pr-${PR}.svg"
+          rsvg-convert -f png -w 1686 -o "out/certificate-pr-${PR}.png" "out/certificate-pr-${PR}.svg"
+          ls -la out
+
+      - name: Upload certificate
+        if: steps.cla.outputs.signed == 'true'
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: certificate-of-contribution-pr-${{ github.event.pull_request.number }}
+          path: out/
+          retention-days: 90
+
+      - name: Post the certificate on the pull request
+        if: steps.cla.outputs.signed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          HANDLE: ${{ github.event.pull_request.user.login }}
+          REPO: ${{ github.repository }}
+          URL: ${{ steps.upload.outputs.artifact-url }}
+        run: |
+          {
+            echo "### Certificate of Contribution"
+            echo
+            echo "Thank you, @${HANDLE} — this is merged."
+            echo
+            echo "Your **Certificate of Contribution** has been issued and is attached to"
+            echo "this workflow run, as PDF, PNG and SVG:"
+            echo
+            echo "$URL"
+            echo
+            echo "Artifacts are retained for 90 days, so do download a copy. If you need it"
+            echo "reissued after that, email info@evigauge.com with a link to this pull request."
+            echo
+            echo "The certificate acknowledges your contribution. It confers no ownership"
+            echo "interest, licence or other right in the project — see"
+            echo "[CLA.md](https://github.com/${REPO}/blob/main/CLA.md) section 5."
+          } > comment.md
+          gh pr comment "$PR" --repo "$REPO" --body-file comment.md

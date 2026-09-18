@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aep.dev/schemas/events.schema.json",
+  "title": "AEP Events",
+  "$defs": {
+    "EventEnvelope": {
+      "type": "object",
+      "required": ["event_id", "run_id", "type", "emitted_at", "payload"],
+      "properties": {
+        "event_id": { "type": "string" },
+        "run_id": { "type": "string" },
+        "type": { "$ref": "#/$defs/EventType" },
+        "emitted_at": { "type": "string", "format": "date-time" },
+        "payload": {}
+      }
+    },
+    "EventType": {
+      "type": "string",
+      "enum": [
+        "run.started",
+        "run.ended",
+        "cycle.started",
+        "cycle.ended",
+        "tool.called",
+        "tool.returned",
+        "subagent.spawned",
+        "message.sent",
+        "message.delivered",
+        "prompt.modified",
+        "prompt.change_queued",
+        "prompt.change_rejected",
+        "memory.written",
+        "artifact.created",
+        "error"
+      ]
+    }
+  }
+}

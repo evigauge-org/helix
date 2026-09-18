@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aep.dev/schemas/resources.schema.json",
+  "title": "AEP Resources",
+  "$defs": {
+    "Ceilings": {
+      "type": "object",
+      "required": ["max_cycles", "max_subagents", "max_tool_calls_per_cycle", "max_wall_seconds"],
+      "properties": {
+        "max_cycles": { "type": "integer", "minimum": 1 },
+        "max_subagents": { "type": "integer", "minimum": 0 },
+        "max_tool_calls_per_cycle": { "type": "integer", "minimum": 1 },
+        "max_wall_seconds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "Budgets": {
+      "type": "object",
+      "required": ["tokens_per_cycle", "tool_calls_per_cycle", "seconds_per_cycle"],
+      "properties": {
+        "tokens_per_cycle": { "type": "integer", "minimum": 1 },
+        "tool_calls_per_cycle": { "type": "integer", "minimum": 1 },
+        "seconds_per_cycle": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "Constitution": {
+      "type": "object",
+      "required": ["immutable_directives", "mutable_prompt", "mutable_prompt_policy"],
+      "properties": {
+        "immutable_directives": { "type": "string" },
+        "mutable_prompt": { "type": "string" },
+        "mutable_prompt_policy": { "$ref": "enums.schema.json#/$defs/PromptPolicy" }
+      }
+    },
+    "ExternalMcpServer": {
+      "type": "object",
+      "required": ["url", "auth"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "auth": { "type": "object" },
+        "name": { "type": "string" }
+      }
+    },
+    "ExternalMcpServerView": {
+      "type": "object",
+      "description": "Read projection of an attached external MCP server. `auth` is REDACTED on read and never returned.",
+      "required": ["url", "name", "enabled"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "name": { "type": "string" },
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "AgentRunnerConfig": {
+      "type": "object",
+      "properties": {
+        "provider_id": { "type": "string", "maxLength": 64 },
+        "model": { "type": "string" }
+      }
+    },
+    "LlmProviderView": {
+      "type": "object",
+      "required": ["id", "name", "kind", "api_key_hint", "created_at", "updated_at"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string" },
+        "kind": { "$ref": "enums.schema.json#/$defs/LlmProviderKind" },
+        "base_url": { "type": ["string", "null"] },
+        "api_key_hint": { "type": "string", "description": "Redacted display: bullet-glyphs + last 4 chars. Plaintext key is NEVER returned." },
+        "default_model": { "type": ["string", "null"] },
+        "last_tested_at": { "type": ["string", "null"], "format": "date-time" },
+        "last_test_status": { "type": ["string", "null"] },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "AgentRunRef": {
+      "type": "object",
+      "required": ["agent_id", "run_id"],
+      "properties": {
+        "agent_id": { "type": "string", "maxLength": 64 },
+        "run_id": { "type": "string", "maxLength": 64 }
+      }
+    },
+    "Agent": {
+      "type": "object",
+      "required": ["id", "name", "constitution", "toolset", "ceilings", "budgets", "root_agent_id", "lifecycle_state", "created_at", "updated_at"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string" },
+        "constitution": { "$ref": "#/$defs/Constitution" },
+        "toolset": { "type": "array", "items": { "type": "string" } },
+        "external_mcp_servers": { "type": "array", "items": { "$ref": "#/$defs/ExternalMcpServerView" } },
+        "ceilings": { "$ref": "#/$defs/Ceilings" },
+        "budgets": { "$ref": "#/$defs/Budgets" },
+        "parent_agent_id": { "type": ["string", "null"], "maxLength": 64 },
+        "root_agent_id": { "type": "string", "maxLength": 64 },
+        "lifecycle_state": { "$ref": "enums.schema.json#/$defs/LifecycleState" },
+        "next_wake_at": { "type": ["string", "null"], "format": "date-time" },
+        "subject_ids": { "type": "array", "items": { "type": "string" } },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "metadata": { "type": "object" },
+        "runner": { "anyOf": [{ "$ref": "#/$defs/AgentRunnerConfig" }, { "type": "null" }] }
+      }
+    },
+    "Run": {
+      "type": "object",
+      "required": ["id", "agent_id", "goal", "state", "started_at", "cycle_count"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "agent_id": { "type": "string", "maxLength": 64 },
+        "goal": { "type": "string" },
+        "state": { "$ref": "enums.schema.json#/$defs/RunState" },
+        "result": {},
+        "started_at": { "type": "string", "format": "date-time" },
+        "ended_at": { "type": ["string", "null"], "format": "date-time" },
+        "cycle_count": { "type": "integer", "minimum": 0 },
+        "subject_ids": { "type": "array", "items": { "type": "string" } },
+        "metadata": { "type": "object" }
+      }
+    },
+    "Artifact": {
+      "type": "object",
+      "required": ["id", "name", "mime_type", "size_bytes", "sha256", "created_at", "created_by"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string" },
+        "mime_type": { "type": "string" },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "sha256": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "created_by": { "$ref": "#/$defs/AgentRunRef" },
+        "run_id": { "type": "string", "maxLength": 64 },
+        "subject_id": { "type": ["string", "null"], "maxLength": 64 },
+        "metadata": { "type": "object" }
+      }
+    },
+    "MemoryRecord": {
+      "type": "object",
+      "required": ["id", "tree_root_id", "namespace", "key", "value", "created_by_agent_id", "created_at"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "tree_root_id": { "type": "string", "maxLength": 64 },
+        "namespace": { "type": "string" },
+        "key": { "type": "string" },
+        "value": {},
+        "embedding": { "type": ["array", "null"], "items": { "type": "number" } },
+        "created_by_agent_id": { "type": "string", "maxLength": 64 },
+        "created_at": { "type": "string", "format": "date-time" },
+        "subject_id": { "type": ["string", "null"], "maxLength": 64 },
+        "ttl_seconds": { "type": ["integer", "null"], "minimum": 1 }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "required": ["id", "from_agent_id", "to_agent_id", "tree_root_id", "body", "sent_at"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "from_agent_id": { "type": "string", "maxLength": 64 },
+        "to_agent_id": { "type": "string", "maxLength": 64 },
+        "tree_root_id": { "type": "string", "maxLength": 64 },
+        "body": {},
+        "sent_at": { "type": "string", "format": "date-time" },
+        "delivered_at": { "type": ["string", "null"], "format": "date-time" },
+        "read_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "Subject": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "metadata": { "type": "object" }
+      }
+    },
+    "PromptHistoryEntry": {
+      "type": "object",
+      "required": ["id", "agent_id", "diff", "reason", "applied_at"],
+      "properties": {
+        "id": { "type": "string" },
+        "agent_id": { "type": "string" },
+        "diff": { "type": "string" },
+        "reason": { "type": "string" },
+        "approved_by": { "type": ["string", "null"] },
+        "applied_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "ErasureManifest": {
+      "type": "object",
+      "required": ["subject_id", "deleted", "redacted", "retained", "generated_at"],
+      "properties": {
+        "subject_id": { "type": "string" },
+        "deleted": { "type": "array", "items": { "type": "object" } },
+        "redacted": { "type": "array", "items": { "type": "object" } },
+        "retained": { "type": "array", "items": { "type": "object" } },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

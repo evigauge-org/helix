@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aep.dev/schemas/enums.schema.json",
+  "title": "AEP Enums",
+  "$defs": {
+    "Capability": {
+      "type": "string",
+      "enum": [
+        "auth.oauth2",
+        "compliance.gdpr",
+        "tools.mcp_external",
+        "self.modify_prompt",
+        "self.spawn_subagent",
+        "self.learning_memory",
+        "messaging.peer",
+        "streaming.sse",
+        "runner.byo_llm"
+      ]
+    },
+    "Scope": {
+      "type": "string",
+      "enum": [
+        "agent.read",
+        "agent.write",
+        "run.read",
+        "run.create",
+        "run.cancel",
+        "stream.subscribe",
+        "memory.read",
+        "memory.write",
+        "tool.invoke",
+        "subject.read",
+        "subject.erase",
+        "subject.export",
+        "provider.read",
+        "provider.write"
+      ]
+    },
+    "LlmProviderKind": {
+      "type": "string",
+      "enum": ["openai_compat", "anthropic", "gemini"]
+    },
+    "ErrorSymbol": {
+      "type": "string",
+      "enum": [
+        "authn_failed",
+        "authz_denied",
+        "capability_not_supported",
+        "ceiling_exceeded",
+        "budget_exhausted",
+        "tree_boundary_violation",
+        "subject_not_found",
+        "constitution_policy_violation",
+        "tool_not_found",
+        "version_mismatch",
+        "session_expired",
+        "lifecycle_conflict"
+      ]
+    },
+    "LifecycleState": {
+      "type": "string",
+      "enum": ["active", "sleeping", "complete", "cancelled", "error", "archived"]
+    },
+    "RunState": {
+      "type": "string",
+      "enum": ["running", "sleeping", "complete", "cancelled", "error"]
+    },
+    "PromptPolicy": {
+      "type": "string",
+      "enum": ["auto", "approval_required", "locked"]
+    },
+    "EraseMode": {
+      "type": "string",
+      "enum": ["hard_delete", "redact"]
+    }
+  }
+}
