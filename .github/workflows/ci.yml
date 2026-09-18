@@ -36,7 +36,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          # Node 24 ships npm 11.x, which is what package-lock.json was
+          # generated with. Do NOT drop this to 22: its npm 10.9 resolves
+          # nested dependencies differently (it wants its own copy of
+          # openai's zod@3 where npm 11 dedupes it into exa-js's) and `npm ci`
+          # then fails with "Missing: zod@3.25.76 from lock file".
+          node-version: "24"
           cache: "npm"
       - run: npm ci
       - name: Generate Prisma client
