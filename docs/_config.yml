@@ -1,7 +1,7 @@
 # GitHub Pages site for the Agent Execution Protocol docs.
 # Served from the /docs folder of the main branch — no build step, no domain.
 
-title: Helix — Agent Execution Protocol
+title: Helix
 tagline: The reference runtime for AEP
 description: >-
   Helix is the reference runtime for the Agent Execution Protocol (AEP), an
@@ -14,13 +14,7 @@ baseurl: /helix
 repository: evigauge-org/helix
 lang: en
 
-author:
-  name: Evigauge Technologies Pvt. Ltd.
-
-logo: /helix/images/og-card.png
-
-twitter:
-  card: summary_large_image
+logo: /images/og-card.png
 
 social:
   name: Helix
@@ -48,7 +42,7 @@ defaults:
       path: ""
     values:
       layout: default
-      image: /helix/images/og-card.png
+      image: /images/og-card.png
 
 # Not published: these two files do not describe Helix or AEP.
 #   API-Reference.md  — documents "Reasonix" /api/v2/* on localhost:8000
