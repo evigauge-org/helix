@@ -10,11 +10,38 @@ ships the product built on top of that protocol: agent authoring, run
 observability, artifact generation, memory, and the settings surface around
 credentials, providers and privacy.
 
+![The Helix chat surface: a ledger reconciliation answered with an exceptions table and a review card awaiting partner sign-off](docs/images/helix-chat.png)
+
+Work starts as a question. Helix answers it with its working attached — the
+steps it took, the figures it is asserting, the sources behind them. When the
+answer implies an action it should not take alone, it stops there: the debit
+note is drafted but unsent, the journal is computed but unposted, and the
+decision goes to a named reviewer.
+
 > **Source-available, not open source.** Helix is published under the Fair
 > Source License Agreement 1.0. Free for organisations under US$1,000,000
 > annual revenue and exempt for academic and non-profit research institutions;
 > above that threshold a commercial licence applies. See
 > [Licence](#licence) before you deploy it.
+
+## Every run leaves a record
+
+An agent run advances in ticks, and each tick writes its steps as it goes:
+what the model reasoned, which tool it called, the arguments it passed, what
+came back, and which calls were held rather than executed. Nothing is
+reconstructed after the fact.
+
+![The run timeline: the agent's reasoning, a knowledge-base lookup, its results, a model verdict, and an outbound email queued for approval](docs/images/helix-run-timeline.png)
+
+The amber row is the part that matters. `send_email` was chosen by the agent
+and written to the trail, but never called — it waits for a human decision and,
+on approval, dispatches as its own `tool_post_approval` step. The standing
+rules it is held against sit in the constitution panel beside the trail.
+
+The same run is readable two ways: this timeline, and the AEP event stream at
+`/aep/v1/runs/{id}/events` that any conforming client can subscribe to.
+
+<sub>Screenshots use demo data.</sub>
 
 ## What's in here
 
