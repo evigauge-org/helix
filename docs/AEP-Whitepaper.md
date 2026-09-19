@@ -1,3 +1,10 @@
+---
+title: "The Agent Execution Protocol (AEP) — white paper"
+description: >-
+  The full AEP specification: the protocol gap between MCP's tool plane and A2A's messaging plane, the runtime/embedder architecture, JSON-RPC 2.0 over HTTP with SSE, capability negotiation, and the self-* capability model for long-lived autonomous agents.
+permalink: /whitepaper/
+---
+
 # The Agent Execution Protocol (AEP)
 
 ### An Open, Vendor-Neutral Protocol for Long-Lived, Self-Improving Autonomous Agents

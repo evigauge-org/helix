@@ -113,10 +113,16 @@ npm run format      # prettier
 
 ## Documentation
 
-- [`docs/AEP-Whitepaper.md`](docs/AEP-Whitepaper.md) — the protocol, in full
-- [`docs/API-Reference.md`](docs/API-Reference.md) — endpoint reference
-- [`docs/decisions/`](docs/decisions/) — architecture decision records: what was
-  decided, what was rejected, and what it cost
+Published at **[evigauge-org.github.io/helix](https://evigauge-org.github.io/helix/)**.
+
+- [The Agent Execution Protocol](https://evigauge-org.github.io/helix/whitepaper/)
+  — the protocol, in full ([source](docs/AEP-Whitepaper.md))
+- [Architecture decision records](https://evigauge-org.github.io/helix/decisions/)
+  — what was decided, what was rejected, and what it cost
+  ([source](docs/decisions/))
+- [JSON Schema bundle](https://evigauge-org.github.io/helix/protocol/schemas/)
+  — the canonical `aep-2026-04-24` wire format
+  ([source](docs/protocol/schemas/))
 
 ## Contributing
 

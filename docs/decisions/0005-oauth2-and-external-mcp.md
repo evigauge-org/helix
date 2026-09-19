@@ -1,3 +1,10 @@
+---
+title: "ADR-0005 — OAuth 2.1 and external MCP servers"
+description: >-
+  Static scoped keys suit a first-party embedder but cannot be delegated, scoped per user or revoked independently. OAuth 2.1 as an advertised capability, and reaching external tools over MCP.
+permalink: /decisions/0005-oauth2-and-external-mcp/
+---
+
 # ADR-0005 — OAuth 2.1 and external MCP servers
 
 - **Status:** Accepted

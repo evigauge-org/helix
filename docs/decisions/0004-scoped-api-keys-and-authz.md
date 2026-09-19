@@ -1,3 +1,10 @@
+---
+title: "ADR-0004 — Scoped API keys and the authorization vocabulary"
+description: >-
+  Capability negotiation answers whether a runtime can do X. Authorization answers whether a caller may. Why AEP keeps those axes separate, and the scope vocabulary that resulted.
+permalink: /decisions/0004-scoped-api-keys-and-authz/
+---
+
 # ADR-0004 — Scoped API keys and the authorization vocabulary
 
 - **Status:** Accepted

@@ -1,3 +1,10 @@
+---
+title: "Architecture decision records"
+description: >-
+  Six ADRs behind AEP and Helix: what was decided, which alternatives were rejected, and the consequences that were accepted.
+permalink: /decisions/
+---
+
 # Architecture Decision Records
 
 Design decisions behind the **Agent Execution Protocol (AEP)** and its reference
