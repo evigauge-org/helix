@@ -1,3 +1,10 @@
+---
+title: "ADR-0002 — Two roles only: runtime and embedder"
+description: >-
+  AEP defines exactly two roles so both sides can be implemented independently, by different teams, in different languages, with the protocol as the only coupling.
+permalink: /decisions/0002-runtime-embedder-split/
+---
+
 # ADR-0002 — Two roles only: Runtime and Embedder
 
 - **Status:** Accepted

@@ -1,3 +1,10 @@
+---
+title: "ADR-0001 — Why AEP is a new protocol, not an MCP or A2A extension"
+description: >-
+  MCP standardises the tool plane and A2A-class protocols standardise messaging between opaque agents. Neither governs a single agent's internal execution model. Why that gap needed its own protocol.
+permalink: /decisions/0001-why-a-new-protocol/
+---
+
 # ADR-0001 — Why AEP needs to be a new protocol
 
 - **Status:** Accepted

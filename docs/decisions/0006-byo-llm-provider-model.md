@@ -1,3 +1,10 @@
+---
+title: "ADR-0006 — Bring-your-own LLM: provider kinds, key custody and agent binding"
+description: >-
+  Model and inference selection sit outside AEP by design. How Helix nonetheless lets teams run agents on their own provider keys, for cost control, data residency and vendor relationships.
+permalink: /decisions/0006-byo-llm-provider-model/
+---
+
 # ADR-0006 — BYO-LLM: provider kinds, key custody, and agent binding
 
 - **Status:** Accepted

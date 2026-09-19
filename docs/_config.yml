@@ -1,0 +1,53 @@
+# GitHub Pages site for the Agent Execution Protocol docs.
+# Served from the /docs folder of the main branch — no build step, no domain.
+
+title: Helix
+tagline: The reference runtime for AEP
+description: >-
+  Helix is the reference runtime for the Agent Execution Protocol (AEP), an
+  open protocol for running autonomous agents. Every tool call, argument and
+  result is written to an audit trail, and irreversible actions are held for
+  human approval.
+
+url: https://evigauge-org.github.io
+baseurl: /helix
+repository: evigauge-org/helix
+lang: en
+
+logo: /images/og-card.png
+
+social:
+  name: Helix
+  links:
+    - https://github.com/evigauge-org/helix
+    - https://github.com/evigauge-org/helix-sdk
+    - https://www.npmjs.com/package/@helixsdk/core
+    - https://pypi.org/project/helixsdk/
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: false
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      image: /images/og-card.png
+
+# Not published: these two files do not describe Helix or AEP.
+#   API-Reference.md  — documents "Reasonix" /api/v2/* on localhost:8000
+#   openapi.json      — a vendored copy of Apify's OpenAPI spec
+# Serving them would put a false API surface on a citable URL.
+exclude:
+  - API-Reference.md
+  - openapi.json

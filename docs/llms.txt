@@ -1,0 +1,53 @@
+# Helix — the Agent Execution Protocol (AEP)
+
+> AEP is an open, vendor-neutral wire protocol defining the contract between an
+> agent runtime (any service hosting long-lived autonomous agents) and an
+> embedder (any UI, orchestrator or application driving them). It standardises
+> the execution model of a single long-lived agent — lifecycle, supervised
+> self-modification, bounded sub-agent spawning, learning memory and GDPR
+> plumbing — and composes with MCP at the tool plane rather than replacing it.
+> Helix is the reference runtime.
+
+Frozen specification version: `aep-2026-04-24`. Wire layer: JSON-RPC 2.0 over
+HTTP with Server-Sent Event streams, capabilities negotiated at `initialize`.
+
+AEP is not a tool protocol and not a message bus. MCP standardises how an agent
+reaches a tool; A2A and ACP standardise how opaque agents message each other;
+agent frameworks (CrewAI, AutoGen, LangGraph) provide single-vendor runtimes
+rather than portable contracts. AEP standardises the layer between them: how a
+single agent sleeps and wakes, bounds its own risk, modifies its own prompt
+under policy, spawns and supervises sub-agents, and carries privacy obligations
+with the data it touches.
+
+Two guarantees distinguish a conforming runtime. Every tool call, its arguments
+and its result are written to an audit trail before the next step begins. And a
+tool call the runtime will not make alone — an outbound email, a payment, a
+filing — is recorded as queued and deferred, dispatching only after a human
+approval is recorded against it.
+
+## Specification
+
+- [AEP white paper](https://evigauge-org.github.io/helix/whitepaper/): the protocol in full — the gap it fills, runtime/embedder architecture, the self-* capability model, and an architecture-grounded comparison with MCP, A2A and the agent frameworks.
+- [JSON Schema bundle](https://evigauge-org.github.io/helix/protocol/schemas/): canonical machine-readable definition of the wire protocol and source of truth for both SDKs.
+
+## Architecture decisions
+
+- [ADR index](https://evigauge-org.github.io/helix/decisions/): six records of what was decided, what was rejected and what it cost.
+- [ADR-0001 — Why AEP is a new protocol](https://evigauge-org.github.io/helix/decisions/0001-why-a-new-protocol/): why the gap could not be filled by extending MCP or A2A.
+- [ADR-0002 — Runtime and embedder](https://evigauge-org.github.io/helix/decisions/0002-runtime-embedder-split/): the two-role split that makes both sides independently implementable.
+- [ADR-0003 — Wire protocol](https://evigauge-org.github.io/helix/decisions/0003-wire-protocol-and-capability-negotiation/): JSON-RPC 2.0 over HTTP and SSE, with capability negotiation instead of version numbers.
+- [ADR-0004 — Scoped keys and authorization](https://evigauge-org.github.io/helix/decisions/0004-scoped-api-keys-and-authz/): why "can this runtime do X" and "may this caller do X" stay separate axes.
+- [ADR-0005 — OAuth 2.1 and external MCP](https://evigauge-org.github.io/helix/decisions/0005-oauth2-and-external-mcp/): delegated authorization, and reaching tools that live outside the runtime.
+- [ADR-0006 — Bring-your-own LLM](https://evigauge-org.github.io/helix/decisions/0006-byo-llm-provider-model/): model selection sits outside the protocol; how provider keys are custodied anyway.
+
+## Implementations
+
+- [Helix (reference runtime)](https://github.com/evigauge-org/helix): Next.js and Postgres, serving AEP at `/aep/v1`. Source-available under the Fair Source License Agreement 1.0.
+- [helix-sdk](https://github.com/evigauge-org/helix-sdk): TypeScript and Python clients, Apache-2.0.
+- [@helixsdk/core on npm](https://www.npmjs.com/package/@helixsdk/core): TypeScript client.
+- [helixsdk on PyPI](https://pypi.org/project/helixsdk/): Python client.
+
+## Optional
+
+- [Contributing guide](https://github.com/evigauge-org/helix/blob/main/CONTRIBUTING.md): how to propose changes; contributors sign a CLA and receive a Certificate of Contribution.
+- [Licence](https://github.com/evigauge-org/helix/blob/main/LICENSE.md): Fair Source License Agreement 1.0 — free below US$1,000,000 annual revenue, exempt for academic and non-profit research.

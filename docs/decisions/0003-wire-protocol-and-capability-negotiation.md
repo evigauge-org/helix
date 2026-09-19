@@ -1,3 +1,10 @@
+---
+title: "ADR-0003 — JSON-RPC 2.0 over HTTP and SSE, with capability negotiation"
+description: >-
+  Why AEP chose JSON-RPC 2.0 over HTTP with Server-Sent Events, and why capabilities are negotiated at initialize rather than assumed by version number.
+permalink: /decisions/0003-wire-protocol-and-capability-negotiation/
+---
+
 # ADR-0003 — JSON-RPC 2.0 over HTTP + SSE, with capability negotiation
 
 - **Status:** Accepted

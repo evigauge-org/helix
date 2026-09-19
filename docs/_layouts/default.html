@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0085CF">
+
+  {%- seo -%}
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "Helix",
+    "alternateName": "Agent Execution Protocol reference runtime",
+    "description": "{{ site.description | strip_newlines | strip }}",
+    "codeRepository": "https://github.com/evigauge-org/helix",
+    "url": "{{ site.url }}{{ site.baseurl }}/",
+    "programmingLanguage": ["TypeScript", "Python"],
+    "runtimePlatform": "Node.js",
+    "license": "https://github.com/evigauge-org/helix/blob/main/LICENSE.md",
+    "author": {
+      "@type": "Organization",
+      "name": "Evigauge Technologies Pvt. Ltd."
+    },
+    "keywords": "agent execution protocol, AEP, autonomous agents, agent runtime, audit trail, human-in-the-loop, MCP, LLM agents"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-head">
+    <a class="brand" href="{{ '/' | relative_url }}">HELIX</a>
+    <nav>
+      <a href="{{ '/whitepaper/' | relative_url }}">Whitepaper</a>
+      <a href="{{ '/protocol/schemas/' | relative_url }}">Schemas</a>
+      <a href="{{ '/decisions/' | relative_url }}">Decisions</a>
+      <a href="https://github.com/evigauge-org/helix">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-foot">
+    <p>
+      Helix is source-available under the
+      <a href="https://github.com/evigauge-org/helix/blob/main/LICENSE.md">Fair Source License Agreement 1.0</a>.
+      Client SDKs are Apache-2.0.
+    </p>
+    <p>&copy; {{ 'now' | date: "%Y" }} Evigauge Technologies Pvt. Ltd.</p>
+  </footer>
+</body>
+</html>

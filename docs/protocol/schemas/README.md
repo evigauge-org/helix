@@ -1,3 +1,10 @@
+---
+title: "AEP JSON Schema bundle"
+description: >-
+  Canonical machine-readable definition of the AEP wire protocol and the source of truth for both client SDKs: the aep-2026-04-24 bundle index, enums, resources, events and the RPC surface.
+permalink: /protocol/schemas/
+---
+
 # AEP JSON Schema Bundle
 
 Canonical machine-readable definition of the AEP wire protocol. This is the **source of truth** for both SDKs. Do not hand-edit generated types in either SDK — regenerate via their respective codegen scripts.
