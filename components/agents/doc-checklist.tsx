@@ -60,7 +60,7 @@ export function DocChecklist({
       : "Recommended documents — runs without these but quality improves with them";
 
   return (
-    <div className="rounded-md border bg-white">
+    <div className="rounded-md border bg-card">
       <div className={cn("rounded-t-md border-b px-3 py-1.5 text-xs font-medium", headerClass)}>
         {headerTitle}
       </div>
@@ -72,7 +72,7 @@ export function DocChecklist({
                 "inline-flex size-5 items-center justify-center rounded-full border",
                 satisfied[i]
                   ? "bg-emerald-500 border-emerald-600 text-white"
-                  : "bg-white border-gray-300 text-gray-400",
+                  : "bg-card border-gray-300 text-gray-400",
               )}
               aria-hidden
             >

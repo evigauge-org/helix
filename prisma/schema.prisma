@@ -27,6 +27,7 @@ model User {
   queryHistory          QueryHistory[]
   feedback              UserFeedback[]
   profile               UserProfile?
+  notificationPref      UserNotificationPref?
   storeProjects         StoreProject[]
   voiceSessions         VoiceSession[]
   accounts              Account[]
@@ -1224,4 +1225,23 @@ model InsuranceFactsheetCache {
 
   @@unique([insurerSlug, monthYyyymm])
   @@index([fetchedAt])
+}
+
+// Per-user notification preferences. Each boolean gates one notification
+// source in lib/notifications/feed.ts; `lastReadAt` marks where the user last
+// caught up so the feed can compute an unread count without storing a row per
+// event. Sources are derived on read from AgentRun / AgentRunReview, so there
+// is no separate event table to keep in sync.
+model UserNotificationPref {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  agentRunCompleted Boolean   @default(true)
+  agentRunFailed    Boolean   @default(true)
+  reviewPending     Boolean   @default(true)
+  agentModified     Boolean   @default(false)
+  lastReadAt        DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

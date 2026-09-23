@@ -45,7 +45,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" variant="floating" className="border-r border-[#0085CF]/10 bg-white">
+    <Sidebar collapsible="icon" variant="floating" className="border-r border-[#0085CF]/10 bg-sidebar">
       <SidebarHeader className="p-3 flex flex-row items-center justify-between">
         <span className="text-lg font-semibold text-[#0085CF] group-data-[collapsible=icon]:hidden">
           HELIX
@@ -147,7 +147,7 @@ export function AppSidebar() {
                         <span>Chats</span>
                       </SidebarMenuButton>
                     </PopoverTrigger>
-              <PopoverContent side="right" align="start" className="w-64 p-2 bg-white border border-[#0085CF]/15 shadow-lg">
+              <PopoverContent side="right" align="start" className="w-64 p-2 bg-card border border-[#0085CF]/15 shadow-lg">
                 <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-2 py-1">
                   Chat History
                 </p>

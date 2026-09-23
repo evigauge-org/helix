@@ -131,7 +131,7 @@ export function RecruitmentBriefCard({
   ];
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 shadow-sm">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 shadow-sm">
       <div className="mb-3 flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-lg bg-[#0085CF]/10">
           <Users className="size-5 text-[#0085CF]" />

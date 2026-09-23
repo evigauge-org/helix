@@ -47,7 +47,7 @@ export default async function OAuthAuthorizePage({
 
   return (
     <div className="flex min-h-svh items-center justify-center bg-gray-50 p-6">
-      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-card p-6 shadow-sm">
         <ConsentForm
           clientName={client.name ?? clientId}
           clientIcon={client.icon ?? null}

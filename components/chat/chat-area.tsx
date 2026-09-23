@@ -17,7 +17,7 @@ export function ChatArea() {
   }, [messages, researchSteps]);
 
   return (
-    <div ref={containerRef} className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden bg-white px-4">
+    <div ref={containerRef} className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden bg-card px-4">
       <div className="mx-auto w-full max-w-3xl min-w-0 space-y-6 py-6">
         {messages.map((msg, idx) => {
           if (msg.role === "user") {

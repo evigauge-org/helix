@@ -177,7 +177,7 @@ export function AgentSpecCard({
                   onClick={() => setTools((prev) => on ? prev.filter((x) => x !== t.slug) : [...prev, t.slug])}
                   className={cn(
                     "rounded-full border px-2.5 py-1 text-xs transition-colors",
-                    on ? "border-[#0085CF] bg-[#0085CF]/10 text-[#0085CF]" : "border-gray-200 bg-white text-gray-500",
+                    on ? "border-[#0085CF] bg-[#0085CF]/10 text-[#0085CF]" : "border-gray-200 bg-card text-gray-500",
                     editing && !done ? "cursor-pointer" : "cursor-default",
                   )}
                 >

@@ -121,7 +121,7 @@ export function ArtifactPreviewCanvas() {
     <Sheet open={isOpen} onOpenChange={() => closePreview?.()}>
       <SheetContent
         side="right"
-        className="bg-white border-l border-[#0085CF]/15 p-0 flex flex-col"
+        className="bg-card border-l border-[#0085CF]/15 p-0 flex flex-col"
         style={{
           width: "clamp(500px, 40vw, 1100px)",
           maxWidth: "min(90vw, 1100px)",
@@ -192,7 +192,7 @@ export function ArtifactPreviewCanvas() {
           {!loading && !error && kind === "docx" && docxHtml && (
             <div className="h-full overflow-y-auto bg-gray-50 px-6 py-8">
               <article
-                className="docx-preview rounded-lg bg-white p-10 shadow-sm border border-gray-200"
+                className="docx-preview rounded-lg bg-card p-10 shadow-sm border border-gray-200"
                 dangerouslySetInnerHTML={{ __html: docxHtml }}
               />
             </div>
@@ -210,7 +210,7 @@ export function ArtifactPreviewCanvas() {
                         "rounded px-3 py-1 text-xs font-medium whitespace-nowrap cursor-pointer " +
                         (i === activeSheet
                           ? "bg-[#0085CF] text-white"
-                          : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200")
+                          : "bg-card text-gray-600 hover:bg-gray-100 border border-gray-200")
                       }
                     >
                       {s.name}
@@ -222,7 +222,7 @@ export function ArtifactPreviewCanvas() {
                 <table className="min-w-full border-collapse text-xs">
                   <tbody>
                     {(xlsxSheets[activeSheet]?.rows ?? []).map((row, ri) => (
-                      <tr key={ri} className={ri === 0 ? "bg-[#0085CF]/5 font-semibold" : (ri % 2 === 0 ? "bg-white" : "bg-gray-50/60")}>
+                      <tr key={ri} className={ri === 0 ? "bg-[#0085CF]/5 font-semibold" : (ri % 2 === 0 ? "bg-card" : "bg-gray-50/60")}>
                         {row.map((cell, ci) => (
                           <td key={ci} className="border border-gray-200 px-2 py-1 align-top">
                             {cell === null || cell === undefined ? "" : String(cell)}

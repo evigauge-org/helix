@@ -23,7 +23,7 @@ export function ResearchCard({ projectId, stageId, research, onSectionUpdated }:
   const s = research.sections;
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 space-y-4">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 space-y-4">
       <h3 className="text-sm font-semibold text-gray-800">Market Research</h3>
 
       <EditableSection

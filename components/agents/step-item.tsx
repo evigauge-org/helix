@@ -312,7 +312,7 @@ function CollapsibleMarkdown({
     tone === "gray" ? "border-gray-200" :
     "border-[#0085CF]/20";
   const bgClass =
-    tone === "gray" ? "bg-gray-50" : "bg-white";
+    tone === "gray" ? "bg-gray-50" : "bg-card";
   return (
     <div className={`mt-2 overflow-hidden rounded-md border ${borderClass} ${bgClass}`}>
       <button
@@ -357,7 +357,7 @@ export function StepItem({ step }: { step: Step }) {
           : "Empty response";
 
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-3">
+      <div className="rounded-lg border border-gray-200 bg-card p-3">
         <StepHeader
           Icon={err ? AlertTriangle : Brain}
           title={err ? "Thinking (upstream error)" : "Thinking"}
@@ -451,7 +451,7 @@ export function StepItem({ step }: { step: Step }) {
           {showRaw ? "Hide raw" : "Raw"}
         </button>
         {showRaw && (
-          <pre className="mt-1.5 max-h-80 overflow-auto rounded-md bg-gray-900 p-2 text-[11px] text-gray-100 whitespace-pre-wrap break-words">
+          <pre className="mt-1.5 max-h-80 overflow-auto rounded-md bg-neutral-900 p-2 text-[11px] text-neutral-100 whitespace-pre-wrap break-words">
             {JSON.stringify(payload, null, 2).slice(0, 4000)}
           </pre>
         )}
@@ -512,7 +512,7 @@ export function StepItem({ step }: { step: Step }) {
           {showRaw ? "Hide raw" : "Raw"}
         </button>
         {showRaw && (
-          <pre className="mt-1.5 max-h-80 overflow-auto rounded-md bg-gray-900 p-2 text-[11px] text-gray-100 whitespace-pre-wrap break-words">
+          <pre className="mt-1.5 max-h-80 overflow-auto rounded-md bg-neutral-900 p-2 text-[11px] text-neutral-100 whitespace-pre-wrap break-words">
             {JSON.stringify(payload, null, 2).slice(0, 4000)}
           </pre>
         )}
@@ -540,7 +540,7 @@ export function StepItem({ step }: { step: Step }) {
     const finalMessage = typeof payload.finalMessage === "string" ? payload.finalMessage : "";
 
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-3">
+      <div className="rounded-lg border border-gray-200 bg-card p-3">
         <StepHeader Icon={Icon} title={title} subtitle={sub ?? undefined} toneClass={tone} />
         {lines.length > 0 && (
           <ul className="mt-2 space-y-1 text-xs text-gray-700">
@@ -589,7 +589,7 @@ export function StepItem({ step }: { step: Step }) {
           toneClass="bg-amber-100 text-amber-700"
         />
         {draft ? (
-          <pre className="mt-2 max-h-40 overflow-auto rounded-md bg-white p-2 text-[11px] text-gray-700 whitespace-pre-wrap break-words">
+          <pre className="mt-2 max-h-40 overflow-auto rounded-md bg-card p-2 text-[11px] text-gray-700 whitespace-pre-wrap break-words">
             {draft.slice(0, 1500)}
             {draft.length > 1500 ? "…" : ""}
           </pre>
@@ -722,7 +722,7 @@ export function StepItem({ step }: { step: Step }) {
         </button>
         {showRaw && (
           <>
-            <pre className="mt-2 max-h-72 overflow-auto rounded-md bg-gray-900 p-2 text-[11px] text-gray-100 whitespace-pre-wrap break-words">
+            <pre className="mt-2 max-h-72 overflow-auto rounded-md bg-neutral-900 p-2 text-[11px] text-neutral-100 whitespace-pre-wrap break-words">
 {code}
             </pre>
             {stdoutPreview && (
@@ -744,7 +744,7 @@ export function StepItem({ step }: { step: Step }) {
   if (kind === "code_stdout") {
     const chunk = typeof payload.chunk === "string" ? payload.chunk : "";
     return (
-      <div className="rounded-lg border border-emerald-200/60 bg-white p-2">
+      <div className="rounded-lg border border-emerald-200/60 bg-card p-2">
         <p className="text-[10px] font-mono uppercase tracking-wider text-emerald-700 mb-1">stdout</p>
         <pre className="text-[11px] text-gray-800 whitespace-pre-wrap break-words font-mono">{chunk}</pre>
       </div>
@@ -754,7 +754,7 @@ export function StepItem({ step }: { step: Step }) {
   if (kind === "code_stderr") {
     const chunk = typeof payload.chunk === "string" ? payload.chunk : "";
     return (
-      <div className="rounded-lg border border-red-200/60 bg-white p-2">
+      <div className="rounded-lg border border-red-200/60 bg-card p-2">
         <p className="text-[10px] font-mono uppercase tracking-wider text-red-700 mb-1">stderr</p>
         <pre className="text-[11px] text-red-800 whitespace-pre-wrap break-words font-mono">{chunk}</pre>
       </div>
@@ -763,7 +763,7 @@ export function StepItem({ step }: { step: Step }) {
 
   // Unknown kind — generic fallback
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-3">
+    <div className="rounded-lg border border-gray-200 bg-card p-3">
       <StepHeader Icon={HelpCircle} title={kind} toneClass="bg-gray-100 text-gray-600" />
       <pre className="mt-2 max-h-48 overflow-auto rounded-md bg-gray-50 p-2 text-[11px] text-gray-700 whitespace-pre-wrap break-words">
         {JSON.stringify(payload, null, 2).slice(0, 2000)}

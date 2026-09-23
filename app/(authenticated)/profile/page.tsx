@@ -17,7 +17,7 @@ export default async function ProfilePage() {
       <div className="h-px bg-[#0085CF]/10" />
 
       {/* Profile card */}
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardContent className="flex items-center gap-5 pt-6">
           <Avatar className="size-20 border-2 border-[#0085CF]/20">
             <AvatarImage src={user?.image ?? undefined} />
@@ -33,7 +33,7 @@ export default async function ProfilePage() {
       </Card>
 
       {/* Details */}
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader>
           <CardTitle className="text-gray-900">Details</CardTitle>
         </CardHeader>

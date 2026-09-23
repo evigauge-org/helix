@@ -40,7 +40,7 @@ export function CarouselCard({ topic, sourceText }: { topic: string; sourceText?
 
   return (
     <>
-      <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 shadow-sm">
+      <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 shadow-sm">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-purple-600">
             <Image className="size-5 text-white" />
@@ -99,7 +99,7 @@ export function CarouselCard({ topic, sourceText }: { topic: string; sourceText?
       {/* Full-screen preview modal */}
       {preview && html && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-          <div className="relative bg-white rounded-xl overflow-hidden max-w-[480px] w-full max-h-[90vh]">
+          <div className="relative bg-card rounded-xl overflow-hidden max-w-[480px] w-full max-h-[90vh]">
             <button
               onClick={() => setPreview(false)}
               className="absolute top-3 right-3 z-10 flex size-8 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 cursor-pointer"

@@ -23,7 +23,7 @@ export function StageApprovalBar({ onApprove, onEdit, onRegenerate, loading, dis
           onChange={(e) => setFeedback(e.target.value)}
           placeholder="What should be changed? Be specific..."
           rows={2}
-          className="w-full resize-none rounded-lg border border-[#0085CF]/20 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-[#0085CF]/30 placeholder:text-gray-400"
+          className="w-full resize-none rounded-lg border border-[#0085CF]/20 bg-card px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-[#0085CF]/30 placeholder:text-gray-400"
         />
         <div className="flex gap-2">
           <button

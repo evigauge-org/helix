@@ -31,13 +31,13 @@ export function AuditTrailFeed({ steps }: { steps: Step[] }) {
               "cursor-pointer rounded-full border px-2.5 py-0.5 text-[11px] font-medium " +
               (filter === k
                 ? "border-[#0085CF] bg-[#0085CF] text-white"
-                : "border-gray-200 bg-white text-gray-600")
+                : "border-gray-200 bg-card text-gray-600")
             }>
             {k}
           </button>
         ))}
       </div>
-      <ol className="divide-y rounded-lg border bg-white">
+      <ol className="divide-y rounded-lg border bg-card">
         {visible.map((s) => (
           <li key={s.id} className="px-3 py-2 font-mono text-xs text-gray-700">
             <span className="text-gray-400">{new Date(s.createdAt).toLocaleTimeString()}</span>

@@ -151,7 +151,7 @@ export function CreateAgentDialog({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-lg bg-white shadow-2xl">
+      <div className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-lg bg-card shadow-2xl">
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <h2 className="text-base font-semibold text-gray-900">
             {template ? `New ${template.name}` : "New Agent"}
@@ -210,7 +210,7 @@ export function CreateAgentDialog({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={200}
-                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
+                className="w-full rounded-md border border-gray-300 bg-card px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
                 placeholder="e.g. Equity Research Analyst"
               />
             </Field>
@@ -220,7 +220,7 @@ export function CreateAgentDialog({
                   rows={2}
                   placeholder="e.g. MSFT, ORCL, CRM, ADBE, NOW, WDAY, INTU, IBM"
                   onChange={(e) => setSystemPromptExtra(`Acquirer list: ${e.target.value}\n\n${systemPromptExtra}`)}
-                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
+                  className="w-full rounded-md border border-gray-300 bg-card px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
                 />
               </Field>
             )}
@@ -230,7 +230,7 @@ export function CreateAgentDialog({
                 onChange={(e) => setGoal(e.target.value)}
                 maxLength={500}
                 rows={2}
-                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
+                className="w-full rounded-md border border-gray-300 bg-card px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
                 placeholder="One sentence — what should this agent accomplish?"
               />
             </Field>
@@ -240,7 +240,7 @@ export function CreateAgentDialog({
                 onChange={(e) => setSystemPromptExtra(e.target.value)}
                 maxLength={2000}
                 rows={4}
-                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
+                className="w-full rounded-md border border-gray-300 bg-card px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
                 placeholder="Operating principles, constraints, tone."
               />
             </Field>

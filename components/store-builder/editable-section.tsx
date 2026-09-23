@@ -58,7 +58,7 @@ export function EditableSection<T>({
   const versionLabel = `v${section.versions.findIndex((v) => v.id === section.activeVersionId) + 1} · ${active.author.toUpperCase()} · ${ago(active.createdAt)}`;
 
   return (
-    <div className={`rounded-lg border ${isApproved ? "border-emerald-200 bg-emerald-50/40" : "border-gray-200 bg-white"} p-3 space-y-2`}>
+    <div className={`rounded-lg border ${isApproved ? "border-emerald-200 bg-emerald-50/40" : "border-gray-200 bg-card"} p-3 space-y-2`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {label && <p className="text-xs font-semibold text-gray-700">{label}</p>}
@@ -100,7 +100,7 @@ export function EditableSection<T>({
             value={userEdit}
             onChange={(e) => setUserEdit(e.target.value)}
             rows={2}
-            className="w-full rounded-md border border-gray-200 bg-white px-2.5 py-1.5 text-sm text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+            className="w-full rounded-md border border-gray-200 bg-card px-2.5 py-1.5 text-sm text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
           />
           <div className="flex items-center gap-2">
             <button onClick={handleRegenerate} disabled={busy} className="text-xs bg-[#0085CF] text-white px-3 py-1.5 rounded hover:bg-[#006BA6] cursor-pointer flex items-center gap-1">

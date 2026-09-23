@@ -25,7 +25,7 @@ export function ModelPricing() {
 
   if (loading) {
     return (
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader><CardTitle className="text-gray-900">Model Pricing (via OpenRouter)</CardTitle></CardHeader>
         <CardContent>
           <div className="flex h-24 items-center justify-center">
@@ -41,7 +41,7 @@ export function ModelPricing() {
   }
 
   return (
-    <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+    <Card className="border-[#0085CF]/10 bg-card shadow-sm">
       <CardHeader>
         <CardTitle className="text-gray-900 flex items-center gap-2">
           <Cpu className="size-5 text-[#0085CF]" />
@@ -85,7 +85,7 @@ export function ModelPricing() {
               // Tier 3 estimate: ~25k input, ~12k output tokens
               const cost = (m.prompt * 25_000 / 1_000_000) + (m.completion * 12_000 / 1_000_000);
               return (
-                <div key={m.id} className="rounded-md bg-white p-2 border border-[#0085CF]/10">
+                <div key={m.id} className="rounded-md bg-card p-2 border border-[#0085CF]/10">
                   <p className="text-[10px] text-gray-400 truncate">{m.name}</p>
                   <p className="text-lg font-bold text-[#0085CF]">${cost.toFixed(3)}</p>
                   <p className="text-[10px] text-gray-400">per query</p>

@@ -18,7 +18,7 @@ export function FollowupPills({
             key={i}
             type="button"
             onClick={() => onPick(q)}
-            className="group flex items-center gap-2 rounded-lg border border-[#0085CF]/15 bg-white px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5"
+            className="group flex items-center gap-2 rounded-lg border border-[#0085CF]/15 bg-card px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5"
           >
             <span className="text-[#0085CF]">→</span>
             <span>{q}</span>

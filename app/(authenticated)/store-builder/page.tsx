@@ -9,7 +9,7 @@ export default function StoreBuilderPage() {
         <p className="text-gray-500 mt-1">Build a complete e-commerce store with AI — from idea to Shopify.</p>
       </div>
       <div className="h-px bg-[#0085CF]/10" />
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader className="flex flex-row items-center gap-3">
           <div className="flex size-10 items-center justify-center rounded-lg bg-[#0085CF]/10">
             <Store className="size-5 text-[#0085CF]" />

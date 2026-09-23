@@ -59,7 +59,7 @@ export function ThinkingIndicator({ hasFiles }: { hasFiles?: boolean }) {
   }, [steps]);
 
   return (
-    <div className="my-2 rounded-lg border border-[#0085CF]/15 bg-white overflow-hidden shadow-sm max-w-[400px]">
+    <div className="my-2 rounded-lg border border-[#0085CF]/15 bg-card overflow-hidden shadow-sm max-w-[400px]">
       {/* Header */}
       <div className="flex items-center gap-2 px-3 py-2 bg-[#0085CF]/5 border-b border-[#0085CF]/10">
         <div className="flex size-5 items-center justify-center">

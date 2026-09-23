@@ -26,7 +26,7 @@ export function MemoryGraph() {
 
   if (loading) {
     return (
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader><CardTitle className="text-gray-900 flex items-center gap-2"><Brain className="size-5 text-[#0085CF]" /> Memory Graph</CardTitle></CardHeader>
         <CardContent><p className="text-sm text-gray-400 animate-pulse">Loading memory...</p></CardContent>
       </Card>
@@ -35,7 +35,7 @@ export function MemoryGraph() {
 
   if (!data || data.totalQueries === 0) {
     return (
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader><CardTitle className="text-gray-900 flex items-center gap-2"><Brain className="size-5 text-[#0085CF]" /> Memory Graph</CardTitle></CardHeader>
         <CardContent>
           <div className="flex h-32 items-center justify-center rounded-lg border border-dashed border-[#0085CF]/20">
@@ -49,7 +49,7 @@ export function MemoryGraph() {
   const maxTopicCount = Math.max(...data.topics.map((t) => t.count), 1);
 
   return (
-    <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+    <Card className="border-[#0085CF]/10 bg-card shadow-sm">
       <CardHeader>
         <CardTitle className="text-gray-900 flex items-center gap-2">
           <Brain className="size-5 text-[#0085CF]" /> Memory Graph

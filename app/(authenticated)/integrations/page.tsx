@@ -124,7 +124,7 @@ function IntegrationCard({ integration }: { integration: IntegrationItem }) {
   };
 
   return (
-    <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+    <Card className="border-[#0085CF]/10 bg-card shadow-sm">
       <CardHeader className="flex flex-row items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-lg bg-[#0085CF]/10">
           <integration.icon className="size-5 text-[#0085CF]" />

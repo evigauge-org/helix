@@ -54,20 +54,20 @@ export default function MemorySettingsPage() {
   }, {});
 
   return (
-    <div className="mx-auto max-w-2xl p-8">
+    <div>
       <h1 className="text-2xl font-semibold text-gray-900">Memory</h1>
       <p className="mt-1 text-sm text-gray-500">
         What Helix remembers about you across conversations.
       </p>
 
-      <div className="mt-6 flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
+      <div className="mt-6 flex items-center justify-between rounded-lg border border-gray-200 bg-card p-4">
         <div>
           <p className="font-medium text-gray-900">Pause memory</p>
           <p className="text-xs text-gray-500">Temporarily stop using memory facts in responses.</p>
         </div>
         <button
           onClick={() => setMemoryPaused(!memoryPaused)}
-          className="flex items-center gap-2 rounded-full border border-[#0085CF]/30 bg-white px-3 py-1.5 text-sm text-[#0085CF] hover:bg-[#0085CF]/5 cursor-pointer"
+          className="flex items-center gap-2 rounded-full border border-[#0085CF]/30 bg-card px-3 py-1.5 text-sm text-[#0085CF] hover:bg-[#0085CF]/5 cursor-pointer"
         >
           {memoryPaused ? <PlayCircle className="size-4" /> : <PauseCircle className="size-4" />}
           {memoryPaused ? "Resume" : "Pause"}
@@ -90,7 +90,7 @@ export default function MemorySettingsPage() {
       ) : (
         <div className="mt-4 space-y-4">
           {Object.entries(grouped).map(([cat, rows]) => (
-            <div key={cat} className="rounded-lg border border-gray-200 bg-white">
+            <div key={cat} className="rounded-lg border border-gray-200 bg-card">
               <div className="border-b border-gray-100 px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-500">
                 {cat}
               </div>

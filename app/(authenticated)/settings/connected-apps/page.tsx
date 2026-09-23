@@ -69,7 +69,7 @@ export default function ConnectedAppsPage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-8">
+    <div>
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Connected Apps</h1>
         <p className="mt-1 text-sm text-gray-500">
@@ -78,7 +78,7 @@ export default function ConnectedAppsPage() {
         </p>
       </div>
 
-      <div className="mt-6 rounded-lg border border-gray-200 bg-white">
+      <div className="mt-6 rounded-lg border border-gray-200 bg-card">
         {loading ? (
           <div className="flex items-center justify-center gap-2 p-12 text-sm text-gray-500">
             <Loader2 className="size-4 animate-spin" /> Loading…
@@ -160,7 +160,7 @@ export default function ConnectedAppsPage() {
       </div>
 
       <AlertDialog open={revokeId !== null} onOpenChange={(open) => !open && setRevokeId(null)}>
-        <AlertDialogContent className="bg-white text-gray-900">
+        <AlertDialogContent className="bg-card text-gray-900">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-gray-900">Disconnect this app?</AlertDialogTitle>
             <AlertDialogDescription className="text-gray-500">
@@ -171,7 +171,7 @@ export default function ConnectedAppsPage() {
           <AlertDialogFooter className="bg-gray-50 border-gray-200">
             <AlertDialogCancel
               disabled={revokeBusy}
-              className="bg-white text-gray-900 border-gray-200 hover:bg-gray-50"
+              className="bg-card text-gray-900 border-gray-200 hover:bg-gray-50"
             >
               Cancel
             </AlertDialogCancel>

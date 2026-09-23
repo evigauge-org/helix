@@ -189,7 +189,7 @@ export default function ApiKeysPage() {
             <TooltipContent
               side="bottom"
               align="start"
-              className="block max-w-xs whitespace-normal bg-gray-900 px-3 py-2 text-left text-xs leading-relaxed text-white"
+              className="block max-w-xs whitespace-normal bg-neutral-900 px-3 py-2 text-left text-xs leading-relaxed text-white"
             >
               This key has the <code className="rounded bg-white/10 px-1 font-mono text-[11px] text-amber-200">aep:*</code> wildcard — full access to your account. If it leaks, anyone with the key can do anything you can. Prefer narrow scopes for new keys.
             </TooltipContent>
@@ -205,7 +205,7 @@ export default function ApiKeysPage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-8">
+    <div>
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">API Keys</h1>
@@ -227,7 +227,7 @@ export default function ApiKeysPage() {
         </Button>
       </div>
 
-      <div className="mt-6 rounded-lg border border-gray-200 bg-white">
+      <div className="mt-6 rounded-lg border border-gray-200 bg-card">
         {loading ? (
           <div className="flex items-center justify-center gap-2 p-12 text-sm text-gray-500">
             <Loader2 className="size-4 animate-spin" /> Loading…
@@ -276,7 +276,7 @@ export default function ApiKeysPage() {
       </div>
 
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="bg-white text-gray-900 sm:max-w-lg max-h-[85vh] overflow-y-auto">
+        <DialogContent className="bg-card text-gray-900 sm:max-w-lg max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-gray-900">Create API Key</DialogTitle>
             <DialogDescription className="text-gray-500">
@@ -360,7 +360,7 @@ export default function ApiKeysPage() {
               variant="outline"
               onClick={() => setCreateOpen(false)}
               disabled={createBusy}
-              className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+              className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50 hover:text-gray-900"
             >
               Cancel
             </Button>
@@ -377,7 +377,7 @@ export default function ApiKeysPage() {
       </Dialog>
 
       <Dialog open={revealKey !== null} onOpenChange={(open) => !open && setRevealKey(null)}>
-        <DialogContent className="bg-white text-gray-900">
+        <DialogContent className="bg-card text-gray-900">
           <DialogHeader>
             <DialogTitle className="text-gray-900">Save your API key</DialogTitle>
             <DialogDescription className="text-gray-500">
@@ -391,7 +391,7 @@ export default function ApiKeysPage() {
               variant="outline"
               size="sm"
               onClick={() => revealKey && copyToClipboard(revealKey)}
-              className="shrink-0 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+              className="shrink-0 border-gray-300 bg-card text-gray-700 hover:bg-gray-50 hover:text-gray-900"
             >
               <Copy className="size-3" />
               Copy
@@ -406,7 +406,7 @@ export default function ApiKeysPage() {
       </Dialog>
 
       <AlertDialog open={revokeId !== null} onOpenChange={(open) => !open && setRevokeId(null)}>
-        <AlertDialogContent className="bg-white text-gray-900">
+        <AlertDialogContent className="bg-card text-gray-900">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-gray-900">Revoke this API key?</AlertDialogTitle>
             <AlertDialogDescription className="text-gray-500">
@@ -414,7 +414,7 @@ export default function ApiKeysPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="bg-gray-50 border-gray-200">
-            <AlertDialogCancel disabled={revokeBusy} className="bg-white text-gray-900 border-gray-200 hover:bg-gray-50">Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={revokeBusy} className="bg-card text-gray-900 border-gray-200 hover:bg-gray-50">Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleRevoke}
               disabled={revokeBusy}

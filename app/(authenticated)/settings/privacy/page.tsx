@@ -175,7 +175,7 @@ export default function PrivacyPage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-8">
+    <div>
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Privacy & DSAR</h1>
@@ -196,7 +196,7 @@ export default function PrivacyPage() {
         </Button>
       </div>
 
-      <div className="mt-6 rounded-lg border border-gray-200 bg-white">
+      <div className="mt-6 rounded-lg border border-gray-200 bg-card">
         {loading ? (
           <div className="flex items-center justify-center gap-2 p-12 text-sm text-gray-500">
             <Loader2 className="size-4 animate-spin" /> Loading…
@@ -269,7 +269,7 @@ export default function PrivacyPage() {
 
       {/* Create dialog */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="bg-white text-gray-900 sm:max-w-lg">
+        <DialogContent className="bg-card text-gray-900 sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-gray-900">New Subject</DialogTitle>
             <DialogDescription className="text-gray-500">
@@ -298,7 +298,7 @@ export default function PrivacyPage() {
                 onChange={(e) => setNewMetadata(e.target.value)}
                 disabled={createBusy}
                 rows={4}
-                className="w-full rounded-md border border-gray-300 bg-white p-2 font-mono text-xs text-gray-900"
+                className="w-full rounded-md border border-gray-300 bg-card p-2 font-mono text-xs text-gray-900"
               />
               <p className="text-xs text-gray-500">Free-form JSON. Stored verbatim.</p>
             </div>
@@ -327,7 +327,7 @@ export default function PrivacyPage() {
               variant="outline"
               onClick={() => setCreateOpen(false)}
               disabled={createBusy}
-              className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+              className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50 hover:text-gray-900"
             >
               Cancel
             </Button>
@@ -345,7 +345,7 @@ export default function PrivacyPage() {
 
       {/* Read modal */}
       <Dialog open={readSubject !== null} onOpenChange={(open) => !open && setReadSubject(null)}>
-        <DialogContent className="bg-white text-gray-900 sm:max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="bg-card text-gray-900 sm:max-w-2xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-gray-900">Subject snapshot</DialogTitle>
             <DialogDescription className="text-gray-500">
@@ -372,7 +372,7 @@ export default function PrivacyPage() {
 
       {/* Erase confirm + manifest */}
       <AlertDialog open={eraseSubject !== null} onOpenChange={(open) => !open && closeEraseModal()}>
-        <AlertDialogContent className="bg-white text-gray-900 sm:max-w-lg">
+        <AlertDialogContent className="bg-card text-gray-900 sm:max-w-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-gray-900">
               {eraseManifest ? "Erasure complete" : "Erase subject data?"}
@@ -448,7 +448,7 @@ export default function PrivacyPage() {
               <>
                 <AlertDialogCancel
                   disabled={eraseBusy}
-                  className="bg-white text-gray-900 border-gray-200 hover:bg-gray-50"
+                  className="bg-card text-gray-900 border-gray-200 hover:bg-gray-50"
                 >
                   Cancel
                 </AlertDialogCancel>

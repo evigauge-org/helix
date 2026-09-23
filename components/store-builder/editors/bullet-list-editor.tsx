@@ -26,7 +26,7 @@ export function BulletListEditor({ value, onChange, placeholder = "Add an item" 
             value={item}
             onChange={(e) => update(i, e.target.value)}
             placeholder={placeholder}
-            className="flex-1 rounded-md border border-gray-200 bg-white px-2 py-1 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+            className="flex-1 rounded-md border border-gray-200 bg-card px-2 py-1 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
           />
           <button onClick={() => remove(i)} className="text-gray-400 hover:text-red-500 cursor-pointer" aria-label="remove">
             <X className="size-3.5" />

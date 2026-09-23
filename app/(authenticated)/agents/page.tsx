@@ -92,13 +92,13 @@ function AgentsPageInner() {
 
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
-      <aside className="w-[260px] shrink-0 border-r border-gray-200 bg-white">
+      <aside className="w-[260px] shrink-0 border-r border-gray-200 bg-card">
         <div className="flex items-center justify-between p-4">
           <h2 className="text-sm font-semibold text-gray-900">Agents</h2>
           <div className="flex items-center gap-1.5">
             <Link
               href="/agents/templates"
-              className="rounded-full border border-[#0085CF]/30 bg-white px-2.5 py-1 text-xs text-[#0085CF] hover:bg-[#0085CF]/5 cursor-pointer"
+              className="rounded-full border border-[#0085CF]/30 bg-card px-2.5 py-1 text-xs text-[#0085CF] hover:bg-[#0085CF]/5 cursor-pointer"
             >
               Templates
             </Link>
@@ -114,7 +114,7 @@ function AgentsPageInner() {
         <AgentsList agents={agents} selectedId={selectedId} onSelect={(id) => { setSelectedId(id); router.replace(`/agents?selected=${id}`); }} />
       </aside>
 
-      <main className="min-w-0 flex-1 overflow-y-auto bg-white p-6">
+      <main className="min-w-0 flex-1 overflow-y-auto bg-background p-6">
         {selected ? (
           <>
             <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
@@ -212,7 +212,7 @@ function AgentsPageInner() {
         )}
       </main>
 
-      <aside className="w-[320px] shrink-0 border-l border-gray-200 bg-white p-4">
+      <aside className="w-[320px] shrink-0 border-l border-gray-200 bg-card p-4">
         <ConstitutionPanel />
       </aside>
 

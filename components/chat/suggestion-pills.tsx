@@ -21,7 +21,7 @@ export function SuggestionPills() {
         <button
           key={s.label}
           onClick={() => sendMessage(s.query)}
-          className="rounded-full border border-[#0085CF]/15 bg-white px-4 py-1.5 text-sm text-gray-600 hover:border-[#0085CF]/40 hover:text-[#0085CF] hover:bg-[#0085CF]/5 transition-colors cursor-pointer shadow-sm"
+          className="rounded-full border border-[#0085CF]/15 bg-card px-4 py-1.5 text-sm text-gray-600 hover:border-[#0085CF]/40 hover:text-[#0085CF] hover:bg-[#0085CF]/5 transition-colors cursor-pointer shadow-sm"
         >
           {s.label}
         </button>

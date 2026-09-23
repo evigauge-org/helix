@@ -85,7 +85,7 @@ function ProductListEditor({ products, onChange }: { products: CatalogProduct[];
   return (
     <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
       {products.map((p, i) => (
-        <div key={i} className="flex items-center gap-2 rounded border border-gray-200 bg-white p-1.5">
+        <div key={i} className="flex items-center gap-2 rounded border border-gray-200 bg-card p-1.5">
           <input value={p.title} onChange={(e) => patch(i, { title: e.target.value })} className="flex-1 rounded border border-gray-200 px-2 py-1 text-xs" placeholder="Title" />
           <input value={p.variants[0]?.price ?? ""} onChange={(e) => patchVariantPrice(i, e.target.value)} className="w-20 rounded border border-gray-200 px-2 py-1 text-xs" placeholder="Price" />
           <button onClick={() => remove(i)} className="text-gray-400 hover:text-red-500 cursor-pointer"><X className="size-3.5" /></button>
@@ -100,7 +100,7 @@ export function CatalogCard({ projectId, stageId, catalog, onSectionUpdated }: P
   const api = useSectionApi<CatalogOutput>(projectId, stageId, 2, onSectionUpdated);
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 space-y-4">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 space-y-4">
       <div className="flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-100">
           <ShoppingBag className="size-5 text-emerald-600" />

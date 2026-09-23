@@ -8,6 +8,7 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { ArtifactPreviewCanvas } from "@/components/artifacts/artifact-preview-canvas";
 import { ArtifactsPanel } from "@/components/artifacts/artifacts-panel";
 import { AuthenticatedChatView } from "@/components/chat/authenticated-chat-view";
+import { NotificationBell } from "@/components/layout/notification-bell";
 
 function UnauthenticatedLanding() {
   return (
@@ -63,7 +64,8 @@ function AuthenticatedHome() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex flex-1 flex-col h-svh overflow-hidden bg-white">
+      <NotificationBell />
+      <main className="flex flex-1 flex-col h-svh overflow-hidden bg-background">
         <ArtifactPreviewCanvas />
         <ArtifactsPanel />
         <AuthenticatedChatView />
