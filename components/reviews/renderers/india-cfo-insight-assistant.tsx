@@ -81,7 +81,7 @@ export function IndiaCfoInsightAssistantRenderer({ output }: { output: CfoInsigh
                       href={cit.sourceUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center rounded border border-gray-300 bg-white px-1.5 py-0.5 text-[10px] text-blue-700 hover:bg-blue-50"
+                      className="inline-flex items-center rounded border border-gray-300 bg-card px-1.5 py-0.5 text-[10px] text-blue-700 hover:bg-blue-50"
                       title={`accessed ${cit.accessedAt}${cit.publisherLastUpdate ? ` · published ${cit.publisherLastUpdate}` : ""}`}
                     >
                       {cit.resourceId}

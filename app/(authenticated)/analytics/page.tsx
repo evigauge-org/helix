@@ -76,7 +76,7 @@ async function getAnalytics(userId: string) {
 
 function StatCard({ icon: Icon, label, value, sub }: { icon: React.ElementType; label: string; value: string; sub?: string }) {
   return (
-    <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+    <Card className="border-[#0085CF]/10 bg-card shadow-sm">
       <CardContent className="flex items-center gap-3 pt-6">
         <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#0085CF]/10">
           <Icon className="size-5 text-[#0085CF]" />
@@ -127,7 +127,7 @@ export default async function AnalyticsPage() {
 
       {/* Tier breakdown */}
       {Object.keys(data.tierBreakdown).length > 0 && (
-        <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+        <Card className="border-[#0085CF]/10 bg-card shadow-sm">
           <CardHeader>
             <CardTitle className="text-gray-900">Query Tier Breakdown</CardTitle>
           </CardHeader>
@@ -156,7 +156,7 @@ export default async function AnalyticsPage() {
 
       {/* Model/Agent usage */}
       {Object.keys(data.agentUsage).length > 0 && (
-        <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+        <Card className="border-[#0085CF]/10 bg-card shadow-sm">
           <CardHeader>
             <CardTitle className="text-gray-900">Model Usage</CardTitle>
           </CardHeader>
@@ -176,7 +176,7 @@ export default async function AnalyticsPage() {
       )}
 
       {/* Recent queries */}
-      <Card className="border-[#0085CF]/10 bg-white shadow-sm">
+      <Card className="border-[#0085CF]/10 bg-card shadow-sm">
         <CardHeader>
           <CardTitle className="text-gray-900">Recent Queries</CardTitle>
         </CardHeader>

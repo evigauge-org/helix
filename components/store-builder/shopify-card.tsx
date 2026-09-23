@@ -30,22 +30,22 @@ export function ShopifyCard({ projectId, stageId, shopify, onSectionUpdated }: P
       </div>
 
       <div className="grid grid-cols-4 gap-2">
-        <div className="rounded-lg bg-white border border-emerald-100 p-2 text-center">
+        <div className="rounded-lg bg-card border border-emerald-100 p-2 text-center">
           <Package className="size-4 text-emerald-600 mx-auto mb-1" />
           <div className="text-lg font-bold text-emerald-700">{shopify.productsUploaded}</div>
           <div className="text-[10px] text-gray-500">Products</div>
         </div>
-        <div className="rounded-lg bg-white border border-emerald-100 p-2 text-center">
+        <div className="rounded-lg bg-card border border-emerald-100 p-2 text-center">
           <FolderOpen className="size-4 text-emerald-600 mx-auto mb-1" />
           <div className="text-lg font-bold text-emerald-700">{shopify.collectionsCreated.length}</div>
           <div className="text-[10px] text-gray-500">Collections</div>
         </div>
-        <div className="rounded-lg bg-white border border-emerald-100 p-2 text-center">
+        <div className="rounded-lg bg-card border border-emerald-100 p-2 text-center">
           <FileText className="size-4 text-emerald-600 mx-auto mb-1" />
           <div className="text-lg font-bold text-emerald-700">{shopify.pagesCreated.length}</div>
           <div className="text-[10px] text-gray-500">Pages</div>
         </div>
-        <div className="rounded-lg bg-white border border-emerald-100 p-2 text-center">
+        <div className="rounded-lg bg-card border border-emerald-100 p-2 text-center">
           <Palette className="size-4 text-emerald-600 mx-auto mb-1" />
           <div className="text-lg font-bold text-emerald-700">{shopify.themeCustomized ? "✓" : "—"}</div>
           <div className="text-[10px] text-gray-500">Theme</div>

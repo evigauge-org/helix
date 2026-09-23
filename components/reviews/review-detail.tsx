@@ -92,7 +92,7 @@ export function ReviewDetail() {
           <button key={t} onClick={() => setTab(t)}
             className={
               "cursor-pointer rounded-full border px-3 py-1 text-xs font-medium " +
-              (tab === t ? "border-[#0085CF] bg-[#0085CF] text-white" : "border-gray-200 bg-white text-gray-600")
+              (tab === t ? "border-[#0085CF] bg-[#0085CF] text-white" : "border-gray-200 bg-card text-gray-600")
             }>
             {t}
           </button>
@@ -112,7 +112,7 @@ export function ReviewDetail() {
             </section>
           ) : null}
           {r.status === "pending" ? (
-            <div className="mt-4 rounded-lg border bg-white p-3">
+            <div className="mt-4 rounded-lg border bg-card p-3">
               <textarea
                 placeholder="Reviewer note (optional)…"
                 value={note}
@@ -151,7 +151,7 @@ export function ReviewDetail() {
       )}
 
       {tab === "replay" && (
-        <div className="rounded-lg border bg-white p-4">
+        <div className="rounded-lg border bg-card p-4">
           <h3 className="font-semibold text-gray-900">Replay this run</h3>
           <p className="mt-1 text-sm text-gray-700">
             Re-executes the agent with the EXACT prompt + memory + knowledge sources captured at the original run start.

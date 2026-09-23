@@ -10,7 +10,7 @@ export function NameOptionsEditor({ value, onChange }: { value: BrandNameOption[
   return (
     <div className="space-y-2">
       {value.map((n, i) => (
-        <div key={i} className="rounded-md border border-gray-200 bg-white p-2 space-y-1">
+        <div key={i} className="rounded-md border border-gray-200 bg-card p-2 space-y-1">
           <input value={n.name}     onChange={(e) => patch(i, { name: e.target.value })}     placeholder="Brand name" className="w-full rounded border border-gray-200 px-2 py-1 text-sm font-medium" />
           <input value={n.tagline}  onChange={(e) => patch(i, { tagline: e.target.value })}  placeholder="Tagline"    className="w-full rounded border border-gray-200 px-2 py-1 text-xs text-gray-600" />
           <textarea value={n.reasoning} onChange={(e) => patch(i, { reasoning: e.target.value })} rows={2} placeholder="Reasoning" className="w-full rounded border border-gray-200 px-2 py-1 text-xs text-gray-600 resize-none" />

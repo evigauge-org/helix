@@ -52,14 +52,14 @@ export function ReviewInbox({ agentId }: { agentId?: string }) {
               "cursor-pointer rounded-full border px-3 py-1 text-xs font-medium " +
               (status === s
                 ? "border-[#0085CF] bg-[#0085CF] text-white"
-                : "border-gray-200 bg-white text-gray-600 hover:border-gray-300")
+                : "border-gray-200 bg-card text-gray-600 hover:border-gray-300")
             }>
             {labelFor(s)}
           </button>
         ))}
       </div>
       {loading ? <p className="text-sm text-gray-500">Loading…</p> : null}
-      <ul className="divide-y rounded-lg border bg-white">
+      <ul className="divide-y rounded-lg border bg-card">
         {rows.map((r) => (
           <li key={r.id} className="px-4 py-3 hover:bg-gray-50">
             <Link href={`/reviews/${r.id}`} className="flex items-center justify-between">

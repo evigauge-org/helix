@@ -106,14 +106,87 @@
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);
     --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(1 0 0);
-    --sidebar-foreground: oklch(0.3 0 0);
-    --sidebar-primary: oklch(0.55 0.15 250);
-    --sidebar-primary-foreground: oklch(1 0 0);
-    --sidebar-accent: oklch(0.95 0.02 250);
-    --sidebar-accent-foreground: oklch(0.55 0.15 250);
-    --sidebar-border: oklch(0.92 0.02 250);
-    --sidebar-ring: oklch(0.55 0.15 250);
+    /* The sidebar tokens used to be a byte-for-byte copy of the :root values,
+       which left the app's most prominent chrome fully light in dark mode. */
+    /* Deliberately NOT equal to --card. `variant="floating"` renders the rail as
+       a panel sitting on --background, and in dark mode the shadow that carries
+       that separation in light mode is invisible — the fill has to do the work. */
+    --sidebar: oklch(0.29 0 0);
+    --sidebar-foreground: oklch(0.92 0 0);
+    --sidebar-primary: oklch(0.68 0.14 245);
+    --sidebar-primary-foreground: oklch(0.16 0 0);
+    --sidebar-accent: oklch(0.41 0.06 245);
+    --sidebar-accent-foreground: oklch(0.8 0.12 245);
+    --sidebar-border: oklch(0.42 0.035 245);
+    --sidebar-ring: oklch(0.68 0.14 245);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Dark palette remap
+   ──────────────────────────────────────────────────────────────────────────
+   The UI is written almost entirely in literal Tailwind utilities
+   (`text-gray-500`, `border-gray-200`, …) rather than semantic tokens, so
+   toggling `.dark` used to change nothing but the body background. Tailwind v4
+   compiles every one of those utilities to `var(--color-<family>-<shade>)`, so
+   redefining the variables under `.dark` re-themes all ~1100 call sites at once.
+
+   Rules of the road:
+   - This block must stay UNLAYERED. Tailwind emits its own values into
+     `@layer theme`, and any unlayered rule outranks every layered one
+     regardless of specificity. Moving this inside `@theme` would kill it.
+   - `--color-white` is deliberately NOT remapped. It is load-bearing for
+     `text-white` on brand-blue buttons and for the translucent `bg-white/10`
+     glass panels. Opaque surfaces use `bg-card` / `bg-background` instead.
+   - Grays compress rather than mirror: the low shades land just above
+     `--card` (oklch 0.205) so panels stay distinguishable from the cards
+     they sit inside, instead of going pure black.
+   - Accent families remap only the tint end (50–300, used as chip fills and
+     borders) and the deep end (700–900, used as chip text). 400/500/600 are
+     left alone because the same shade backs both `text-red-600` labels and
+     solid `bg-red-600` buttons, and no single value improves both.
+   ────────────────────────────────────────────────────────────────────────── */
+.dark {
+    --color-gray-50: #242429;
+    --color-gray-100: #2b2b32;
+    --color-gray-200: #34343d;
+    --color-gray-300: #45454f;
+    --color-gray-400: #8a8a95;
+    --color-gray-500: #a0a0ac;
+    --color-gray-600: #b9b9c4;
+    --color-gray-700: #d0d0d9;
+    --color-gray-800: #e6e6ec;
+    --color-gray-900: #f5f5f8;
+
+    --color-slate-50: #242429;
+    --color-slate-100: #2b2b32;
+    --color-slate-200: #34343d;
+    --color-slate-700: #d0d0d9;
+    --color-slate-800: #e6e6ec;
+    --color-slate-900: #f5f5f8;
+
+    --color-red-50: #2a1315;
+    --color-red-100: #3a191c;
+    --color-red-200: #4f2126;
+    --color-red-300: #6b2c31;
+    --color-red-700: #ff8a8a;
+    --color-red-800: #ffa5a5;
+    --color-red-900: #ffbdbd;
+
+    --color-emerald-50: #0d2620;
+    --color-emerald-100: #123328;
+    --color-emerald-200: #17452f;
+    --color-emerald-300: #1e5c3d;
+    --color-emerald-700: #4ade9f;
+    --color-emerald-800: #6ee7b0;
+    --color-emerald-900: #8ff0c4;
+
+    --color-amber-50: #2a2010;
+    --color-amber-100: #382a13;
+    --color-amber-200: #4b3818;
+    --color-amber-300: #63491e;
+    --color-amber-700: #fcc94b;
+    --color-amber-800: #fdd97a;
+    --color-amber-900: #fee9a8;
 }
 
 @layer base {
@@ -154,6 +227,22 @@
 .chat-markdown code:not(pre code) { background: #f3f4f6; padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.85em; color: #1f2937; }
 .chat-markdown pre { margin-bottom: 1rem; border-radius: 0.5rem; overflow-x: auto; }
 .chat-markdown strong { color: #111827; }
+
+/* Dark counterpart. The rules above are literal hex ("explicit colors for white
+   bg"), so the palette remap cannot reach them — chat is the primary reading
+   surface in the app and would otherwise render dark-on-dark. */
+.dark .chat-markdown { color: #d0d0d9; }
+.dark .chat-markdown h1,
+.dark .chat-markdown h2,
+.dark .chat-markdown h3 { color: #f5f5f8; }
+.dark .chat-markdown th,
+.dark .chat-markdown td { border-color: #34343d; }
+.dark .chat-markdown th { background: #2b2b32; color: #e6e6ec; }
+.dark .chat-markdown td { color: #b9b9c4; }
+.dark .chat-markdown blockquote { border-left-color: #45454f; color: #a0a0ac; }
+.dark .chat-markdown a { color: #4eb4ec; }
+.dark .chat-markdown code:not(pre code) { background: #2b2b32; color: #e6e6ec; }
+.dark .chat-markdown strong { color: #f5f5f8; }
 
 /* Thinking animation */
 @keyframes pulse-dot {

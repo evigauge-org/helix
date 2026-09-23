@@ -14,7 +14,7 @@ export function CompetitorEditor({ value, onChange }: { value: Competitor[]; onC
   return (
     <div className="space-y-3">
       {value.map((c, i) => (
-        <div key={i} className="rounded-md border border-gray-200 bg-white p-2.5 space-y-1.5">
+        <div key={i} className="rounded-md border border-gray-200 bg-card p-2.5 space-y-1.5">
           <div className="flex items-center gap-2">
             <input value={c.name} onChange={(e) => patch(i, { name: e.target.value })} placeholder="Name" className="flex-1 rounded border border-gray-200 px-2 py-1 text-sm" />
             <button onClick={() => remove(i)} className="text-gray-400 hover:text-red-500 cursor-pointer"><X className="size-4" /></button>

@@ -82,7 +82,7 @@ export function IndiaCaAuditAssistantRenderer({ output }: { output: CaAuditOutpu
                               href={cit.sourceUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex items-center rounded border border-gray-300 bg-white px-1.5 py-0.5 text-[10px] text-blue-700 hover:bg-blue-50"
+                              className="inline-flex items-center rounded border border-gray-300 bg-card px-1.5 py-0.5 text-[10px] text-blue-700 hover:bg-blue-50"
                               title={`accessed ${cit.accessedAt}${cit.publisherLastUpdate ? ` · published ${cit.publisherLastUpdate}` : ""}`}
                             >
                               {cit.resourceId}
@@ -112,7 +112,7 @@ export function IndiaCaAuditAssistantRenderer({ output }: { output: CaAuditOutpu
                 <summary className="cursor-pointer text-[11px] font-semibold uppercase tracking-wide text-gray-500">
                   Derivation code
                 </summary>
-                <pre className="mt-1 max-h-60 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100">
+                <pre className="mt-1 max-h-60 overflow-auto rounded bg-neutral-900 p-2 text-[11px] text-neutral-100">
                   {f.derivationCode}
                 </pre>
               </details>

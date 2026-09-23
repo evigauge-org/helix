@@ -53,7 +53,7 @@ export function SheetCard({ topic, sourceText, autoFire = true }: Props) {
   }, [autoFire]);
 
   return (
-    <div className="my-4 rounded-xl border border-emerald-200 bg-white p-4 shadow-sm">
+    <div className="my-4 rounded-xl border border-emerald-200 bg-card p-4 shadow-sm">
       <div className="flex items-center gap-3 mb-3">
         <div className="flex size-10 items-center justify-center rounded-lg bg-emerald-100">
           <Table2 className="size-5 text-emerald-600" />

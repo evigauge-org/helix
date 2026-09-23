@@ -96,7 +96,7 @@ export function TemplateCard({ template }: { template: TemplateCardData }) {
   return (
     <div
       className={cn(
-        "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-200 ease-out",
+        "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-card shadow-sm transition-all duration-200 ease-out",
         "hover:-translate-y-0.5 hover:shadow-lg",
         style.hoverBorder,
       )}

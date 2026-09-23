@@ -62,7 +62,7 @@ export function ConversationResponse({
   return (
     <div className="text-gray-800">
       {researchSteps && researchSteps.length > 0 && (
-        <div className="mb-3 max-w-[460px] rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm">
+        <div className="mb-3 max-w-[460px] rounded-xl border border-gray-200 bg-card px-3 py-2 shadow-sm">
           <button
             type="button"
             onClick={() => setStepsOpen((o) => !o)}

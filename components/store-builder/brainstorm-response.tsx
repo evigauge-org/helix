@@ -22,7 +22,7 @@ export function BrainstormResponse({ message, suggestedCategories, onPickCategor
             <button
               key={c.label}
               onClick={() => onPickCategory?.(c.label)}
-              className="text-left rounded-lg border border-[#0085CF]/15 bg-white px-3 py-2 hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5 transition-colors cursor-pointer"
+              className="text-left rounded-lg border border-[#0085CF]/15 bg-card px-3 py-2 hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5 transition-colors cursor-pointer"
             >
               <p className="text-sm font-semibold text-gray-800">{c.label}</p>
               <p className="text-xs text-gray-500 mt-0.5">{c.description}</p>

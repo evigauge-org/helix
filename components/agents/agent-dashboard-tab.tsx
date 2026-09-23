@@ -39,7 +39,7 @@ export function AgentDashboardTab({ agentId }: { agentId: string }) {
 
   if (missing && !meta) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-8 text-center">
+      <div className="rounded-xl border border-gray-200 bg-card p-8 text-center">
         <p className="text-sm text-gray-500">
           This agent hasn&apos;t published a dashboard yet. Ask it in chat or wait for the next tick.
         </p>
@@ -71,7 +71,7 @@ export function AgentDashboardTab({ agentId }: { agentId: string }) {
         key={meta.updatedAt}
         src={`/api/agent-dashboards/${agentId}/render`}
         sandbox="allow-scripts allow-same-origin"
-        className="w-full h-[calc(100vh-220px)] border-0 rounded-xl bg-white shadow-sm"
+        className="w-full h-[calc(100vh-220px)] border-0 rounded-xl bg-card shadow-sm"
         title={`${meta.title} dashboard`}
       />
     </div>

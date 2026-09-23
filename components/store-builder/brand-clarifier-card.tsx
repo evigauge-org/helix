@@ -91,7 +91,7 @@ function CustomPillAdder({ onAdd }: { onAdd: (value: string) => void }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-white border border-[#0085CF] px-2 py-0.5">
+    <span className="inline-flex items-center gap-1 rounded-full bg-card border border-[#0085CF] px-2 py-0.5">
       <input
         autoFocus
         value={value}
@@ -201,7 +201,7 @@ export function BrandClarifierCard({ initialCategory = "clothing", initialCustom
   };
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-5 shadow-sm space-y-5">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-5 shadow-sm space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0085CF] to-[#003754] shadow-md">
@@ -219,7 +219,7 @@ export function BrandClarifierCard({ initialCategory = "clothing", initialCustom
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value as BrandCategory)}
-          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+          className="w-full rounded-lg border border-gray-200 bg-card px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
         >
           <option value="clothing">Clothing / Fashion</option>
           <option value="electronics">Electronics</option>
@@ -231,7 +231,7 @@ export function BrandClarifierCard({ initialCategory = "clothing", initialCustom
             value={customType}
             onChange={(e) => setCustomType(e.target.value)}
             placeholder="e.g. pet accessories, musical instruments, home decor"
-            className="w-full mt-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+            className="w-full mt-2 rounded-lg border border-gray-200 bg-card px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
           />
         )}
         {schemaLoading && (
@@ -318,7 +318,7 @@ export function BrandClarifierCard({ initialCategory = "clothing", initialCustom
           value={audience}
           onChange={(e) => setAudience(e.target.value)}
           placeholder="e.g. Gen Z urban males, fitness-conscious"
-          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+          className="w-full rounded-lg border border-gray-200 bg-card px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
         />
       </div>
 
@@ -330,7 +330,7 @@ export function BrandClarifierCard({ initialCategory = "clothing", initialCustom
           onChange={(e) => setFreeform(e.target.value)}
           rows={2}
           placeholder="Any additional context..."
-          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30 resize-none"
+          className="w-full rounded-lg border border-gray-200 bg-card px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30 resize-none"
         />
       </div>
 

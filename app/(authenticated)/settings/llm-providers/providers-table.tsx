@@ -95,11 +95,11 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
       </div>
 
       {rows.length === 0 ? (
-        <Card className="border-[#0085CF]/10 bg-white p-8 text-center text-gray-500">
+        <Card className="border-[#0085CF]/10 bg-card p-8 text-center text-gray-500">
           No providers yet. Add one to start using your own LLM keys.
         </Card>
       ) : (
-        <Card className="border-[#0085CF]/10 bg-white shadow-sm overflow-hidden">
+        <Card className="border-[#0085CF]/10 bg-card shadow-sm overflow-hidden">
           <table className="w-full text-sm">
             <thead className="bg-gray-50 text-gray-700">
               <tr>
@@ -133,7 +133,7 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                        className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50"
                         onClick={() => onTest(p.id)}
                         disabled={testing === p.id}
                       >
@@ -142,7 +142,7 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                        className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50"
                         onClick={() => setEditing(p)}
                       >
                         Edit
@@ -150,7 +150,7 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="border-red-200 bg-white text-red-700 hover:bg-red-50"
+                        className="border-red-200 bg-card text-red-700 hover:bg-red-50"
                         onClick={() => setConfirmDelete(p)}
                       >
                         Delete
@@ -189,7 +189,7 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
 
       {confirmDelete && (
         <AlertDialog open onOpenChange={(o) => !o && (setConfirmDelete(null), setDeleteError(null))}>
-          <AlertDialogContent className="bg-white text-gray-900">
+          <AlertDialogContent className="bg-card text-gray-900">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-gray-900">Delete provider “{confirmDelete.name}”?</AlertDialogTitle>
               <AlertDialogDescription className="text-gray-600">
@@ -200,7 +200,7 @@ export function ProvidersTable({ initial }: { initial: ProviderRow[] }) {
               <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{deleteError}</div>
             )}
             <AlertDialogFooter className="bg-gray-50 border-t border-gray-200">
-              <AlertDialogCancel className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
+              <AlertDialogCancel className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50">
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction

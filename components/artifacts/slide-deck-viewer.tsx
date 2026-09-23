@@ -28,7 +28,7 @@ function TitleSlide({ slide }: { slide: Slide }) {
 
 function PromiseSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col justify-center p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col justify-center p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: ACCENT }} />
       <div className="text-[10px] sm:text-xs font-bold tracking-[0.2em]" style={{ color: ACCENT }}>
         EMPOWERMENT PROMISE
@@ -66,7 +66,7 @@ function InspirationSlide({ slide }: { slide: Slide }) {
 
 function HeuristicSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1.5" style={{ background: BLUE }} />
       <div className="text-[10px] sm:text-xs font-bold tracking-[0.2em]" style={{ color: BLUE }}>
         HEURISTIC
@@ -91,7 +91,7 @@ function HeuristicSlide({ slide }: { slide: Slide }) {
 
 function ContentSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: BLUE }} />
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: DARK_BLUE }}>
         {slide.title}
@@ -111,7 +111,7 @@ function ContentSlide({ slide }: { slide: Slide }) {
 
 function TwoColumnSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: BLUE }} />
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: DARK_BLUE }}>
         {slide.title}
@@ -142,7 +142,7 @@ function TwoColumnSlide({ slide }: { slide: Slide }) {
 
 function KeyStatSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: BLUE }} />
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: DARK_BLUE }}>
         {slide.title}
@@ -159,7 +159,7 @@ function KeyStatSlide({ slide }: { slide: Slide }) {
 
 function QuoteSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: ACCENT }} />
       <h2 className="text-lg sm:text-xl md:text-2xl font-bold" style={{ color: DARK_BLUE }}>
         {slide.title}
@@ -181,7 +181,7 @@ function QuoteSlide({ slide }: { slide: Slide }) {
 
 function CycleSlide({ slide }: { slide: Slide }) {
   return (
-    <div className="w-full h-full flex flex-col p-8 bg-white relative">
+    <div className="w-full h-full flex flex-col p-8 bg-card relative">
       <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background: BLUE }} />
       <div className="text-[10px] sm:text-xs font-bold tracking-[0.2em]" style={{ color: BLUE }}>
         THE CYCLE
@@ -263,7 +263,7 @@ export function SlideDeckViewer({ deck }: { deck: DeckStructure }) {
   const next = () => setCurrent((c) => Math.min(total - 1, c + 1));
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-3 shadow-sm">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-3 shadow-sm">
       {/* Slide display — 16:9 aspect */}
       <div className="relative rounded-lg overflow-hidden bg-gray-100" style={{ aspectRatio: "16 / 9" }}>
         <SlideRenderer slide={deck.slides[current]} />

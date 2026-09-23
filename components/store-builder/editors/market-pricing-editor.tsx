@@ -33,7 +33,7 @@ export function MarketPricingView({ value }: { value: MarketPricingTier[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
       {value.map((p) => (
-        <div key={p.market} className="rounded-md border border-gray-200 bg-white px-2.5 py-1.5">
+        <div key={p.market} className="rounded-md border border-gray-200 bg-card px-2.5 py-1.5">
           <p className="text-xs text-gray-500 uppercase">{p.market} — {p.currency}</p>
           <p className="font-medium text-gray-800">{p.symbol}{p.low} / {p.symbol}{p.mid} / {p.symbol}{p.high}</p>
           {p.reasoning && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{p.reasoning}</p>}

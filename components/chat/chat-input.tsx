@@ -164,7 +164,7 @@ export function ChatInput() {
   };
 
   return (
-    <div className="bg-white px-4 py-3">
+    <div className="bg-card px-4 py-3">
       <div className="mx-auto max-w-3xl">
         {/* File error */}
         {fileError && (
@@ -182,7 +182,7 @@ export function ChatInput() {
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
           className={cn(
-            "flex flex-col rounded-[18px] border bg-white shadow-sm px-4 pt-3 pb-2.5 transition-colors",
+            "flex flex-col rounded-[18px] border bg-card shadow-sm px-4 pt-3 pb-2.5 transition-colors",
             dragOver
               ? "border-[#0085CF] border-dashed bg-[#0085CF]/5"
               : "border-[#0085CF]/15",

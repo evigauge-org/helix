@@ -8,7 +8,7 @@ export function ColorPaletteEditor({ value, onChange }: { value: Palette; onChan
   return (
     <div className="grid grid-cols-3 gap-2">
       {slots.map((s) => (
-        <div key={s} className="flex items-center gap-2 rounded border border-gray-200 bg-white p-1.5">
+        <div key={s} className="flex items-center gap-2 rounded border border-gray-200 bg-card p-1.5">
           <input type="color" value={value[s]} onChange={(e) => onChange({ ...value, [s]: e.target.value })} className="size-6 rounded border-0 cursor-pointer" />
           <div className="flex-1 min-w-0">
             <p className="text-xs text-gray-500 capitalize">{s}</p>

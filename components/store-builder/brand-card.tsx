@@ -69,7 +69,7 @@ function BrandVoiceView({ value }: { value: BrandVoice }) {
           <ul className="text-xs text-gray-600 space-y-0.5">{value.donts.map((d, i) => <li key={i}>✗ {d}</li>)}</ul>
         </div>
       </div>
-      <div className="rounded-md bg-white border border-gray-200 p-2 text-xs italic text-gray-600">
+      <div className="rounded-md bg-card border border-gray-200 p-2 text-xs italic text-gray-600">
         &ldquo;{value.sampleProductDesc}&rdquo;
       </div>
     </div>
@@ -81,7 +81,7 @@ export function BrandCard({ projectId, stageId, branding, onSectionUpdated }: Pr
   const s = branding.sections;
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 space-y-4">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 space-y-4">
       <div className="flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-violet-100">
           <Palette className="size-5 text-violet-600" />
@@ -139,7 +139,7 @@ export function BrandCard({ projectId, stageId, branding, onSectionUpdated }: Pr
           </p>
           <div className="grid grid-cols-3 gap-2">
             {branding.logoUrls.map((url, i) => (
-              <div key={i} className="rounded-lg border border-gray-200 bg-white p-2 flex items-center justify-center aspect-square overflow-hidden">
+              <div key={i} className="rounded-lg border border-gray-200 bg-card p-2 flex items-center justify-center aspect-square overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={url} alt={`Logo ${i + 1}`} className="max-w-full max-h-full object-contain" />
               </div>

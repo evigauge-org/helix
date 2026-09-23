@@ -163,7 +163,7 @@ export function ChatInputCentered() {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         className={cn(
-          "flex flex-col rounded-[20px] sm:rounded-[24px] border bg-white shadow-sm px-4 sm:px-5 pt-3 sm:pt-4 pb-2.5 sm:pb-3 transition-colors",
+          "flex flex-col rounded-[20px] sm:rounded-[24px] border bg-card shadow-sm px-4 sm:px-5 pt-3 sm:pt-4 pb-2.5 sm:pb-3 transition-colors",
           dragOver
             ? "border-[#0085CF] border-dashed bg-[#0085CF]/5"
             : "border-[#0085CF]/20",

@@ -52,7 +52,7 @@ export function SocialCard({ projectId, stageId, social, onSectionUpdated }: Pro
   const [carouselPreview, setCarouselPreview] = useState(false);
 
   return (
-    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-white p-4 space-y-4">
+    <div className="my-4 rounded-xl border border-[#0085CF]/15 bg-card p-4 space-y-4">
       <div className="flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-pink-100">
           <Share2 className="size-5 text-pink-600" />
@@ -116,7 +116,7 @@ export function SocialCard({ projectId, stageId, social, onSectionUpdated }: Pro
 
       {carouselPreview && social.carouselHtml && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-          <div className="relative bg-white rounded-xl overflow-hidden max-w-[480px] w-full max-h-[90vh]">
+          <div className="relative bg-card rounded-xl overflow-hidden max-w-[480px] w-full max-h-[90vh]">
             <button onClick={() => setCarouselPreview(false)} className="absolute top-3 right-3 z-10 flex size-8 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 cursor-pointer">
               <X className="size-4" />
             </button>

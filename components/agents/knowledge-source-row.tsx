@@ -34,7 +34,7 @@ export function KnowledgeSourceRow({
   busy?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm">
+    <div className="flex items-center gap-3 rounded-md border border-gray-200 bg-card px-3 py-2 text-sm">
       {source.lane === "pageindex" ? (
         <FileType className="size-4 text-gray-500" />
       ) : (

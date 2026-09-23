@@ -117,7 +117,7 @@ export function ProviderFormDialog({
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent
-        className="bg-white text-gray-900 w-[calc(100%-1.5rem)] sm:max-w-lg max-h-[90dvh] p-0 gap-0 overflow-hidden flex flex-col"
+        className="bg-card text-gray-900 w-[calc(100%-1.5rem)] sm:max-w-lg max-h-[90dvh] p-0 gap-0 overflow-hidden flex flex-col"
       >
         <DialogHeader className="shrink-0 px-6 pt-6 pb-4 border-b border-gray-100">
           <DialogTitle className="text-xl font-semibold text-gray-900">
@@ -139,7 +139,7 @@ export function ProviderFormDialog({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="My Anthropic Prod"
-              className="border-gray-300 bg-white text-gray-900 h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
+              className="border-gray-300 bg-card text-gray-900 h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
               required
               aria-required="true"
               aria-describedby="prov-name-help"
@@ -176,8 +176,8 @@ export function ProviderFormDialog({
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0085CF]/40 focus-visible:ring-offset-1",
                       selected
                         ? "border-[#0085CF] bg-[#0085CF]/5 ring-1 ring-[#0085CF]/30"
-                        : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50",
-                      disabled && !selected ? "opacity-40 cursor-not-allowed hover:bg-white hover:border-gray-200" : "",
+                        : "border-gray-200 bg-card hover:border-gray-300 hover:bg-gray-50",
+                      disabled && !selected ? "opacity-40 cursor-not-allowed hover:bg-card hover:border-gray-200" : "",
                       disabled && selected ? "cursor-default" : "",
                     ].join(" ")}
                   >
@@ -207,7 +207,7 @@ export function ProviderFormDialog({
                 value={baseUrl}
                 onChange={(e) => setBaseUrl(e.target.value)}
                 placeholder="https://api.openai.com/v1"
-                className="border-gray-300 bg-white text-gray-900 font-mono text-xs h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
+                className="border-gray-300 bg-card text-gray-900 font-mono text-xs h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
                 required={kind === "openai_compat"}
                 aria-required={kind === "openai_compat"}
                 aria-describedby="prov-base-url-help"
@@ -222,7 +222,7 @@ export function ProviderFormDialog({
                       type="button"
                       onClick={() => setBaseUrl(u)}
                       aria-label={`Use base URL ${u}`}
-                      className="rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[10.5px] font-mono text-gray-600 transition hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5 hover:text-[#0085CF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0085CF]/40"
+                      className="rounded-full border border-gray-200 bg-card px-2 py-0.5 text-[10.5px] font-mono text-gray-600 transition hover:border-[#0085CF]/40 hover:bg-[#0085CF]/5 hover:text-[#0085CF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0085CF]/40"
                     >
                       {u}
                     </button>
@@ -250,7 +250,7 @@ export function ProviderFormDialog({
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder={mode === "edit" ? "Leave blank to keep current key" : "sk-ant-… / sk-… / your-key"}
-              className="border-gray-300 bg-white text-gray-900 font-mono h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
+              className="border-gray-300 bg-card text-gray-900 font-mono h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
               required={mode === "create"}
               aria-required={mode === "create"}
               aria-describedby="prov-key-help"
@@ -273,7 +273,7 @@ export function ProviderFormDialog({
               value={defaultModel}
               onChange={(e) => setDefaultModel(e.target.value)}
               placeholder={`e.g. ${selectedKind.exampleModel}`}
-              className="border-gray-300 bg-white text-gray-900 h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
+              className="border-gray-300 bg-card text-gray-900 h-10 focus-visible:ring-[#0085CF]/40 focus-visible:border-[#0085CF]"
               aria-describedby="prov-default-model-help"
               autoComplete="off"
               spellCheck={false}
@@ -299,7 +299,7 @@ export function ProviderFormDialog({
           <Button
             type="button"
             variant="outline"
-            className="border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+            className="border-gray-300 bg-card text-gray-700 hover:bg-gray-50"
             onClick={onClose}
             disabled={saving}
           >

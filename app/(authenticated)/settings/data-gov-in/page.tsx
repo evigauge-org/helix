@@ -71,7 +71,7 @@ export default function DataGovInSettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-8">
+    <div>
       <h1 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
         <KeyRound className="size-5" /> data.gov.in API key
       </h1>

@@ -13,7 +13,7 @@ export function ParagraphEditor({ value, onChange, rows = 6 }: Props) {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       rows={rows}
-      className="w-full rounded-md border border-gray-200 bg-white px-2.5 py-1.5 text-sm text-gray-800 resize-y focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
+      className="w-full rounded-md border border-gray-200 bg-card px-2.5 py-1.5 text-sm text-gray-800 resize-y focus:outline-none focus:ring-2 focus:ring-[#0085CF]/30"
     />
   );
 }

@@ -69,7 +69,7 @@ export function IndiaInsuranceFactsheetAssistantRenderer({ output }: { output: F
                 href={`/api/insurance/factsheet/${id}/pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-700 hover:bg-gray-50"
+                className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-card px-3 py-1 text-[11px] font-medium text-gray-700 hover:bg-gray-50"
               >
                 <FileText className="size-3" />
                 {id.slice(0, 8)}

@@ -70,7 +70,7 @@ export function TemplateGallery() {
                 className={
                   "inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors " +
                   (active
-                    ? "bg-white text-gray-900 shadow-sm"
+                    ? "bg-card text-gray-900 shadow-sm"
                     : "text-gray-500 hover:text-gray-700")
                 }
               >
@@ -79,7 +79,7 @@ export function TemplateGallery() {
                 <span
                   className={
                     "rounded-full px-1.5 py-0.5 text-[10px] font-semibold " +
-                    (active ? "bg-gray-100 text-gray-600" : "bg-white text-gray-400")
+                    (active ? "bg-gray-100 text-gray-600" : "bg-card text-gray-400")
                   }
                 >
                   {counts[c]}
@@ -96,7 +96,7 @@ export function TemplateGallery() {
             placeholder="Search templates…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-full border border-gray-200 bg-white py-2 pl-9 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
+            className="w-full rounded-full border border-gray-200 bg-card py-2 pl-9 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0085CF]/50 focus:outline-none focus:ring-2 focus:ring-[#0085CF]/15"
           />
         </div>
       </div>
