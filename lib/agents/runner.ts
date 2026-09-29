@@ -621,9 +621,11 @@ export async function runOneCycle(params: {
         const execStart = Date.now();
         try {
           const result = await tool.execute(ctx, parsed.data);
+          // Flat, matching ToolResult and the error paths above — the run
+          // timeline reads ok/data/error at the top level.
           await writeStep(
             "tool_result",
-            { result: result as unknown as Record<string, unknown> },
+            result as unknown as Record<string, unknown>,
             { toolSlug: name, durationMs: Date.now() - execStart },
           );
           emitAep(runId, "tool.returned", {

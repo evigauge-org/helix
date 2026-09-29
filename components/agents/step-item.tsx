@@ -9,6 +9,7 @@ import {
   GitBranch, FileCheck, BookOpen,
 } from "lucide-react";
 import { MarkdownRenderer } from "@/components/markdown/markdown-renderer";
+import { unwrapToolResult } from "@/lib/agents/tool-result-payload";
 
 type StepKind = "think" | "tool_call" | "tool_result" | "cycle_end";
 
@@ -461,9 +462,11 @@ export function StepItem({ step }: { step: Step }) {
 
   if (kind === "tool_result") {
     const slug = step.toolSlug ?? null;
-    const { ok, lines } = formatToolResult(slug, payload);
+    // Older rows stored the ToolResult as `{ result: … }`; read through it.
+    const resultPayload = unwrapToolResult(payload);
+    const { ok, lines } = formatToolResult(slug, resultPayload);
     const Icon = ok ? CheckCircle2 : XCircle;
-    const data = toRecord(payload.data);
+    const data = toRecord(resultPayload.data);
 
     // llm_debate / llm_reason answers are long markdown — render them properly.
     const markdownResult =
